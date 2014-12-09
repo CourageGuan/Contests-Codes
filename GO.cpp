@@ -183,13 +183,14 @@ void deal(int kase,int x,int y)
               //pic[i][j]=3;
               tpic[i][j]=4;
             }
+      }
 	  else
 		for(int i=1;i<=n;i++)
           for(int j=1;j<=n;j++)
             if(tpic[i][j]==3)
             {
                //pic[i][j]=0;
-               //tpic[i][j]=0;
+               tpic[i][j]=0;
             }
 	  //num=1;
       break;
@@ -218,7 +219,7 @@ void deal(int kase,int x,int y)
       break;
   }
 }
-}
+
 
 // true 棋子被吃　　false 棋子未被吃　
 bool dfs(int x,int y,int par1,int par2)  // par1 相同颜色  par2　跳出颜色
