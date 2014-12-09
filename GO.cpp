@@ -16,7 +16,7 @@ void deal(int kase,int x,int y);
 
 int main()
 {
-  freopen("C:\\Users\\Administrator\\Desktop\\data\\test.txt","r",stdin);
+  //freopen("C:\\Users\\Administrator\\Desktop\\data\\test.txt","r",stdin);
   while(cin>>n>>m&&n!=0)
   {
     int i,j;
@@ -57,8 +57,11 @@ int main()
 		  {
 			deal(pic[x+dx[j]][y+dy[j]],x+dx[j],y+dy[j]);
 	      }
-		  if(pic[x+dx[j]][y+dy[j]]==1&&pic[j][j]==2)
-			    deal(pic[x+dx[j]][y+dy[j]],x+dx[j],y+dy[j]);
+		  if(pic[x+dx[j]][y+dy[j]]==1&&pic[x][y]==2)
+		  {
+		  	//puts("ok");
+			deal(pic[x+dx[j]][y+dy[j]],x+dx[j],y+dy[j]);
+	      }
 		}//cout<<numB<<" "<<numW<<endl;
     }
     memcpy(tpic,pic,sizeof(pic));
@@ -80,6 +83,11 @@ int main()
         {
           numB++;
 		}
+	/*for(i=0;i<=n+1;i++)
+    {for(j=0;j<=n+1;j++)
+     cout<<tpic[i][j]<<" ";
+     cout<<endl;
+    }*/
 	memcpy(tpic,pic,sizeof(pic));
     for(i=1;i<=n;i++)    //Í³¼Æ¿Õ°×
 	  for(j=1;j<=n;j++)
@@ -94,7 +102,7 @@ int main()
         {
           numW++;
 		}
-		for(i=0;i<=n+1;i++)
+	/*for(i=0;i<=n+1;i++)
     {for(j=0;j<=n+1;j++)
      cout<<tpic[i][j]<<" ";
      cout<<endl;
@@ -181,7 +189,7 @@ void deal(int kase,int x,int y)
             if(tpic[i][j]==3)
             {
                //pic[i][j]=0;
-               tpic[i][j]=0;
+               //tpic[i][j]=0;
             }
 	  //num=1;
       break;
