@@ -5,8 +5,8 @@
 using namespace std;
 const int N=25;
 
-int pic[N][N],tpic[N][N]; //pic ¼ÇÂ¼Í¼µÄ×´Ì¬£¬¡¡tpic¡¡ÓÃÓÚdfsµÄ±ê¼Ç
-int num;  // ¼ÇÂ¼±»³ÔÆå×ÓÊı
+int pic[N][N],tpic[N][N]; //pic è®°å½•å›¾çš„çŠ¶æ€ï¼Œã€€tpicã€€ç”¨äºdfsçš„æ ‡è®°
+int num;  // è®°å½•è¢«åƒæ£‹å­æ•°
 int numB,numW,repeat;
 int n,m;
 int dx[4]={0,0,-1,1},dy[4]={1,-1,0,0};  //0 1 2 3  up down left right
@@ -21,7 +21,7 @@ int main()
   {
     int i,j;
     numB=numW=0;
-    for(i=0;i<=n+1;i++)    //³õÊ¼»¯¡¡±ßÔµ¡¡-1
+    for(i=0;i<=n+1;i++)    //åˆå§‹åŒ–ã€€è¾¹ç¼˜ã€€-1
       for(j=0;j<=n+1;j++)
       {
         if(i==0||j==0||i==n+1||j==n+1)
@@ -38,7 +38,7 @@ int main()
 	for(i=0;i<m;i++)
     {
       char s[20];
-      int x,y; //par -1 ±ßÔµ 0 ¿Õ°×¡¡£±¡¡ºÚÉ«¡¡£²¡¡°×É«¡¡£³¡¡±ê¼Ç¡¡
+      int x,y; //par -1 è¾¹ç¼˜ 0 ç©ºç™½ã€€ï¼‘ã€€é»‘è‰²ã€€ï¼’ã€€ç™½è‰²ã€€ï¼“ã€€æ ‡è®°ã€€
       cin>>s;
 	  if(s[2]=='-') x=-(s[3]-'0');
 		else x=s[2]-'0';
@@ -50,8 +50,8 @@ int main()
 	    x+=n/2+1;
 		y+=n/2+1;
 		tpic[x][y]=pic[x][y]=(s[0]=='B')?1:2;
-		deal(pic[x][y],x,y);
-		for(int j=0;j<4;j++)  //´¦ÀíÏàÁÚ²»Í¬É«Çé¿ö
+		//deal(pic[x][y],x,y);
+		for(int j=0;j<4;j++)  //å¤„ç†ç›¸é‚»ä¸åŒè‰²æƒ…å†µ
 		{
 		  if(pic[x+dx[j]][y+dy[j]]==2&&pic[x][y]==1)
 		  {
@@ -70,12 +70,12 @@ int main()
       cout<<pic[i][j]<<" ";
      cout<<endl;
     }*/
-    for(i=1;i<=n;i++)    //Í³¼Æ¿Õ°×
+    for(i=1;i<=n;i++)    //ç»Ÿè®¡ç©ºç™½
 	  for(j=1;j<=n;j++)
         if(tpic[i][j]==0)
         {
-          deal(0,i,j);  //ºÚÉ«Õ¼Áì
-          //deal(3,i,j);  //°×É«Õ¼Áì 
+          deal(0,i,j);  //é»‘è‰²å é¢†
+          //deal(3,i,j);  //ç™½è‰²å é¢† 
         }
    for(i=1;i<=n;i++)    
 	  for(j=1;j<=n;j++)
@@ -89,14 +89,14 @@ int main()
      cout<<endl;
     }*/
 	memcpy(tpic,pic,sizeof(pic));
-    for(i=1;i<=n;i++)    //Í³¼Æ¿Õ°×
+    for(i=1;i<=n;i++)    //ç»Ÿè®¡ç©ºç™½
 	  for(j=1;j<=n;j++)
         if(tpic[i][j]==0)
         {
-          //deal(0,i,j);  //ºÚÉ«Õ¼Áì
-          deal(3,i,j);  //°×É«Õ¼Áì 
+          //deal(0,i,j);  //é»‘è‰²å é¢†
+          deal(3,i,j);  //ç™½è‰²å é¢† 
         }
-    for(i=1;i<=n;i++)    //Í³¼Æ¿Õ°×
+    for(i=1;i<=n;i++)    //ç»Ÿè®¡ç©ºç™½
 	  for(j=1;j<=n;j++)
         if(tpic[i][j]==5)
         {
@@ -221,8 +221,8 @@ void deal(int kase,int x,int y)
 }
 
 
-// true Æå×Ó±»³Ô¡¡¡¡false Æå×ÓÎ´±»³Ô¡¡
-bool dfs(int x,int y,int par1,int par2)  // par1 ÏàÍ¬ÑÕÉ«  par2¡¡Ìø³öÑÕÉ«
+// true æ£‹å­è¢«åƒã€€ã€€false æ£‹å­æœªè¢«åƒã€€
+bool dfs(int x,int y,int par1,int par2)  // par1 ç›¸åŒé¢œè‰²  par2ã€€è·³å‡ºé¢œè‰²
 {
   int i;
   bool flag=1;
