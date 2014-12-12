@@ -1,4 +1,0 @@
-Problems
-========
-
-About ACM/ICPC
