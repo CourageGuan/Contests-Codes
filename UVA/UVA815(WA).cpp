@@ -33,14 +33,14 @@ typedef double DB;
 #define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} //Print Matrix
 
 #define FRER freopen("815.in","r",stdin)
-#define FREW freopen(".out","w",stdout)
+#define FREW freopen("815.out","w",stdout)
 
 
 const double PI=acos(-1.0);
 const int MAXN=0x7fffffff;
 const int MINN=0x8fffffff;
 const int EPS=1e-7;
-const int N=50;
+const int N=35;
 
 /*
    on ne voit bien qu'avec le coeur.l'essentiel est invisible pour les yeux
@@ -49,37 +49,44 @@ int m,n;
 
 void  solve(int m,int n)
 {
-  int avg=0;
-  int reg[N][N];
+  int avg=0,ans=0;
+  int reg[N*N];
+  int sum=n*m;
   SET(reg,0);
-  F(i,1,m)
-    F(j,1,n)
-    {
-      int d;
-      scanf("%d",&d);
-      reg[i][j]=d;
-      d*=100;
-      avg+=d;
-    }
-  PM(reg,m+1,n+1);
-  //DEBUG;
+  F(i,1,sum)
+  {
+    int d;
+    scanf("%d",&d);
+    reg[i]=d;
+  }
+  sort(reg+1,reg+sum+1);
+  //F(i,1,sum) cout<<reg[i]<<" ";
   int v;
   scanf("%d",&v);
-  int sum=n*m;
   double avgd;
-  avgd=(double(avg+v)/double(sum*100));
-  C(avgd);
+  F(i,1,sum)
+  {
+    if((avg+(reg[i+1]-reg[i])*i)*100<v && i<sum)
+      avg+=(reg[i+1]-reg[i])*i;
+	else
+	{
+	  ans=i;
+	  //C(ans);
+	  avgd=reg[i]+double(v-100*avg)/double(i*100);
+	  break;
+	}
+  }
+  //PM(reg,m+1,n+1);
+  //DEBUG;
+  //C(avgd);
   printf("Water level is %.2f meters.\n",avgd);
-  double ans=0;
-  F(i,1,m)
-    F(j,1,n)
-      if (reg[i][j]<avg) ans++;
-  printf("%.2f percent of the region is under water.\n",ans*100/sum);
+  printf("%.2f percent of the region is under water.\n\n",double(ans*100)/double(sum));
 }
 
 int main()
 {
-  FRER;
+  //FRER;
+  //FREW;
   int _=0;
   while(scanf("%d%d",&m,&n)==2&m&n){
     _++;
