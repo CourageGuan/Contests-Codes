@@ -30,7 +30,7 @@ typedef double DB;
 #define SET(a,t) memset(a,t,sizeof(a))
 #define SETS(ST) while(!ST.empty()) ST.pop();
 #define DEBUG puts("!BUG!")
-#define PM(x,y,a) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} //Print Matrix
+#define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} //Print Matrix
 
 #define FRER freopen(".in","r",stdin)
 #define FREW freopen(".out","W",stdout)
@@ -40,6 +40,7 @@ const double PI=acos(-1.0);
 const int MAXN=0x7fffffff;
 const int MINN=0x8fffffff;
 const int EPS=1e-7;
+const int N=
 
 
 /*
