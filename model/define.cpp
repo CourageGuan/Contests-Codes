@@ -1,8 +1,9 @@
 #include<iostream>
 #include<cstdio>
+#include<cstdlib>
 #include<cstring>
 #include<cmath>
-//#include<ctime>
+#include<ctime>
 
 #include<algorithm>
 #include<vector>
@@ -31,18 +32,19 @@ typedef long long LL;
 #define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} //Print Matrix
 
 #define FRER freopen("test","r",stdin)
-#define FREW freopen("1","W",stdout)
+#define FREW freopen("1","w",stdout)
 
+<template>T
+bool cmp(T a,T b){return a>b;}
 
-const double PI=acos(-1.0);
-const int INF=0x7fffffff;
-const int _INF=0x8fffffff;
+const double pi=acos(-1.0);
+const int inf=0x7fffffff;
+const int _inf=0x8fffffff;
+const LL  INF=1e18;
 const int EPS=1e-7;
 
 const int N=    ;//The Range of Description
 
-<template>T
-bool cmp(T a,T b){return a>b;}
 
 /*
    on ne voit bien qu'avec le coeur.l'essentiel est invisible pour les yeux

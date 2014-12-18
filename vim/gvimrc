@@ -1,0 +1,160 @@
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+colo desert
+syntax on
+set nu
+set history=1000000
+set tabstop=4 
+set shiftwidth=4
+set smarttab
+set cindent
+set nobackup
+set noswapfile
+set mouse=a
+set syn=cpp
+
+"字体
+set guifont=DejaVuSans\Mono\ 12
+"windows下 set guifont=courier_new:h12   
+set shortmess=atI   " 关闭启动提示 
+winpos 400 400      " 设定窗口位置  
+set lines=60 columns=100    " 设定窗口大小  
+set guioptions-=T           " 隐藏工具栏
+set guioptions-=m           " 隐藏菜单栏
+set laststatus=2 " 显示状态栏 (默认值为 1, 无法显示状态栏)
+set statusline=[%n]%<%f%y%h%m%r%=\ %l\ of\ %L,%c 
+" 设置在状态行显示的信息
+
+"F9编译运行
+map <F9> :call CR()<CR>
+func! CR()
+    exec "w"
+    exec "! g++ % -o %<"
+    exec "! ./%<" "windows改成 exec "! %<"
+endfunc
+
+"imap <c-]> {<cr>}<c-o>O<left><right>
+"inoremap ( ()<LEFT>
+"inoremap [ []<LEFT>
+"inoremap { {}<LEFT>
+"inoremap " ""<LEFT>
+"inoremap ' ''<LEFT>
+
+"F2插入模板
+map <F2> :call SetTitle()<CR>
+func SetTitle()
+let l = 0
+let l = l + 1 | call setline(l, '/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+let l = l + 1 | call setline(l, ' & Author: GYH')
+let l = l + 1 | call setline(l, ' & Created Time:  '.strftime('%c'))
+let l = l + 1 | call setline(l, ' & File Name: '.expand('%'))
+let l = l + 1 | call setline(l, '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '#include <iostream>')
+let l = l + 1 | call setline(l, '#include <cmath>')
+let l = l + 1 | call setline(l, '#include <cstdio>')
+let l = l + 1 | call setline(l, '#include <cstdlib>')
+let l = l + 1 | call setline(l, '#include <cstring>')
+let l = l + 1 | call setline(l, '#include <ctime>')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '#include <algorithm>')
+let l = l + 1 | call setline(l, '#include <list>')
+let l = l + 1 | call setline(l, '#include <vector>')
+let l = l + 1 | call setline(l, '#include <stack>')
+let l = l + 1 | call setline(l, '#include <queue>')
+let l = l + 1 | call setline(l, '#include <set>')
+let l = l + 1 | call setline(l, '#include <map>')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'using namespace std;')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'typedef long long LL;')
+let l = l + 1 | call setline(l, 'typedef vector<int> VI;')
+let l = l + 1 | call setline(l, 'typedef map<string,int> MSI;') 
+let l = l + 1 | call setline(l, 'typedef map<int,int> MII;')
+let l = l + 1 | call setline(l, 'typedef pair<int,int> PII;')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '#define F(i,a,b) for(int i=a;i<=b;i++)')
+let l = l + 1 | call setline(l, '#define Fd(i,a,b) for(int i=a;i>=b;i--)')
+let l = l + 1 | call setline(l, '#define C(a) cout<<a<<endl')
+let l = l + 1 | call setline(l, '#define SET(a,t) memset(a,t,sizeof(a))')
+let l = l + 1 | call setline(l, '#define SETS(ST) while(!ST.empty()) ST.pop();')
+let l = l + 1 | call setline(l, '#define DEBUG puts("OK")')
+let l = l + 1 | call setline(l, '#define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} ')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '#define FRER freopen("test","r",stdin)')
+let l = l + 1 | call setline(l, '#define FREW freopen("1","w",stdout)')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '<template>T')
+let l = l + 1 | call setline(l, 'bool cmp(T a,T b){return a>b;}')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'const int inf = 0x7fffffff;')
+let l = l + 1 | call setline(l, 'const int _inf= 0x8fffffff;')
+let l = l + 1 | call setline(l, 'const LL  INF = 1e18;')
+let l = l + 1 | call setline(l, 'const double EPS = 1e-8;')
+let l = l + 1 | call setline(l, 'const double pi = acos(-1.0);')
+let l = l + 1 | call setline(l, 'const int N=  ;//The Range of Description')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '/*')
+let l = l + 1 | call setline(l, '  on ne voit bien qu avec le coeur.l essentiel est invisible pour les yeux')
+let l = l + 1 | call setline(l, '                                                                          */')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'void solve()')
+let l = l + 1 | call setline(l, '{')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '}')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'int main()')
+let l = l + 1 | call setline(l, '{')
+let l = l + 1 | call setline(l, '    return 0;')
+let l = l + 1 | call setline(l, '}')
+let l = l + 1 | call setline(l, '')
+endfunc
+ 
+  colorscheme desert
+  "set autoindent
+  set number
+  autocmd FileType c,cpp,python :set go=
+  autocmd FileType c,cpp,python :syntax on
+  autocmd FileType c,cpp :set syn=cpp
+  autocmd FileType python :set syn=python	
+  set cindent
+  "set incsearch
+  "set hlsearch 
+  let &termencoding=&encoding 
+  set fileencodings=utf-8,gbk  
+  "autocmd FileType c,cpp,python :set shiftwidth=4
+  "autocmd FileType c,cpp,python :set tabstop=4
+  autocmd FileType c,cpp,python :set backspace=indent,eol,start
+  set guifont=Courier_new:h14:b:cANSI
+
+  filetype on 
+  filetype plugin on 
+  filetype indent on
