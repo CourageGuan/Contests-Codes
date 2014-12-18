@@ -21,27 +21,28 @@ typedef map<string,int> MSI;
 typedef map<int,int> MII;
 typedef pair<int,int> PII;
 typedef long long LL;
-typedef double DB;
-
 
 #define F(i,a,b) for(int i=a;i<=b;i++)
 #define Fd(i,a,b) for(int i=a;i>=b;i--)
-#define P(a) cout<<a<<endl 
+#define C(a) cout<<a<<endl
 #define SET(a,t) memset(a,t,sizeof(a))
 #define SETS(ST) while(!ST.empty()) ST.pop();
-#define DEBUG puts("!BUG!")
+#define DEBUG puts("OK")
 #define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} //Print Matrix
 
-#define FRER freopen(".in","r",stdin)
-#define FREW freopen(".out","W",stdout)
+#define FRER freopen("test","r",stdin)
+#define FREW freopen("1","W",stdout)
 
 
 const double PI=acos(-1.0);
-const int MAXN=0x7fffffff;
-const int MINN=0x8fffffff;
+const int INF=0x7fffffff;
+const int _INF=0x8fffffff;
 const int EPS=1e-7;
-const int N=
 
+const int N=    ;//The Range of Description
+
+<template>T
+bool cmp(T a,T b){return a>b;}
 
 /*
    on ne voit bien qu'avec le coeur.l'essentiel est invisible pour les yeux
@@ -52,7 +53,8 @@ void  solve()
 {
 
 }
+
 int main()
 {
-  solve();
+  return 0;
 }
