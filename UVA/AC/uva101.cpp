@@ -10,7 +10,6 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
-
 #include <algorithm>
 #include <list>
 #include <vector>
@@ -65,6 +64,7 @@ void print()
 	  printf(" %d",block[i][j-1]);
 	printf("\n");
   }
+  //printf("\n");
 }
 
 void ret(int a)  //return blocks
@@ -133,30 +133,24 @@ int main()
   //FRER;
   //FREW;
   scanf("%d",&n);
-  getchar();
-  char ch[30];
+  //getchar();
+  char ch[10],ch1[10];
   F(i,0,n-1)
   {
 	map[i]=i;
 	block[i].push_back(i);
 	//C(block[i].size());
   }
-  while(scanf("%[^\n]%*c",&ch)==1 && ch[0]!='q')
+  int a,b;
+  while(scanf("%s%d%s%d",&ch,&a,&ch1,&b)==4 && ch[0]!='q')
   {
     //C(ch);
-	int a=-1,b=0;
-	int kase=0,len=strlen(ch);
+	int kase=0;
+	if(a==b) continue;
     if(ch[0]=='m') kase++;
 	else kase+=3;
-	F(i,4,len)
-	  if(isdigit(ch[i]))
-	    if(a==-1) a=ch[i]-'0';
-	    else b=ch[i]-'0';
-	  else
-		if(ch[i]=='o' && ch[i+1]=='v') kase++;
-		//C(a);C(b);C(kase);
-		if(a==b) continue;
-    solve(a,b,kase);
+	if(ch1[1]=='v') kase++; 
+	solve(a,b,kase);
     //print();//break;
   }
   print();
