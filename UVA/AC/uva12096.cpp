@@ -35,8 +35,8 @@ typedef pair<int,int> PII;
 #define DEBUG puts("OK")
 #define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;}
 
-#define FRER freopen("test","r",stdin)
-#define FREW freopen("UVa12096.out","w",stdout)
+#define FRER freopen("UVa12096.in","r",stdin)
+#define FREW freopen("1","w",stdout)
 
 template <typename T>
 bool cmp(T a,T b){return a>b;}
@@ -55,13 +55,12 @@ struct p{
 	int sum;
     int ID;
 	set<int> s;
-	p(int sum=0,int ID=0):sum(sum),ID(ID) {s.clear();}
 };
 
 stack<p> st;
 vector<p> v;
-map<set<int>,int> mp;
 set<int>::iterator it;
+map<set<int>,int> mp;
 
 void init()
 {
@@ -87,19 +86,24 @@ void print()
 
 void insv(p &p1)
 {
-	if(mp.count(p1.s)) p1=mp[p1.s];
-	else{
-		DEBUG;
-		p1.ID=v.size();
-		mp[p1.s]=p1.ID;
-		v.push_back(p1);
-	}
+	/*vector<p>::iterator it;
+	for(it=v.begin();it!=v.end();++it)*/
+		if (mp.count(p1.s)){			
+		    p1.ID=mp[p1.s];
+			return;
+		}
+	p1.ID=v.size()+1;
+	mp[p1.s]=p1.ID;
+	v.push_back(p1);
 }
 
 void PUS()
 {
 	p p1;
-    insv(p1);
+	p1.s.clear();
+	p1.sum=p1.s.size();
+	p1.ID=1;
+	insv(p1);
 	st.push(p1);
 }
 
@@ -141,13 +145,12 @@ void INS()
 void ADD()
 {
 	if(st.empty() || st.size()==1) return;
-	p p1=vst.top();st.pop();
-	p p2=vst.top();st.pop();
-	insv(p1);
+	p p1=st.top();st.pop();
+	p p2=st.top();st.pop();
 	p2.s.insert(p1.ID);
-	p2.sum=p2.s.size();
+	//cout<<"!!";C(p2.s.size());
 	insv(p2);
-	//C("!");C(p2.ID);
+	p2.sum=p2.s.size();
 	st.push(p2);
 }
 
@@ -160,6 +163,7 @@ void solve()
 	{
 		char ch[20];
 		scanf("%s",ch);
+		//C(ch[0]);
 		switch(ch[0])
 		{
 			case 'P':PUS();break;
@@ -168,7 +172,6 @@ void solve()
 			case 'I':INS();break;
 			case 'A':ADD();break;
         }
-		C(ch[0]);
 		print();
 	}
 	printf("***\n");
@@ -176,14 +179,14 @@ void solve()
 
 int main()
 {
-	FRER;
+	//FRER;
+	//FREW;
 	int t;
 	scanf("%d",&t);
 	while(t--){
 		init();
 		solve();
 	}
-	//printf("TIME WASTED: %.2f\n",(double)clock()/CLOCKS_PER_SEC);
     return 0;
 }
 

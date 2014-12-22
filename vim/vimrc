@@ -65,8 +65,8 @@ set mouse=a
 set syn=cpp
 
 "字体
-set guifont=DejaVuSans\Mono\ 14
-"windows下 set guifont=courier_new:h12   
+set guifont=DejaVuSans\Mono\ 13
+"windows下 set guifont=courier_new:h13  
 set shortmess=atI   " 关闭启动提示 
 winpos 400 400      " 设定窗口位置  
 set lines=60 columns=100    " 设定窗口大小  
@@ -105,6 +105,7 @@ let l = l + 1 | call setline(l, ' & Created Time:  '.strftime('%c'))
 let l = l + 1 | call setline(l, ' & File Name: '.expand('%'))
 let l = l + 1 | call setline(l, '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/')
 let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '//#pragma comment(linker, "/STACK:1024000000,1024000000")')
 let l = l + 1 | call setline(l, '#include <iostream>')
 let l = l + 1 | call setline(l, '#include <cmath>')
 let l = l + 1 | call setline(l, '#include <cstdio>')
@@ -119,7 +120,7 @@ let l = l + 1 | call setline(l, '#include <stack>')
 let l = l + 1 | call setline(l, '#include <queue>')
 let l = l + 1 | call setline(l, '#include <set>')
 let l = l + 1 | call setline(l, '#include <map>')
-let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '#include <string>')
 let l = l + 1 | call setline(l, 'using namespace std;')
 let l = l + 1 | call setline(l, '')
 let l = l + 1 | call setline(l, 'typedef long long LL;')
@@ -130,28 +131,39 @@ let l = l + 1 | call setline(l, 'typedef pair<int,int> PII;')
 let l = l + 1 | call setline(l, '')
 let l = l + 1 | call setline(l, '#define F(i,a,b) for(int i=a;i<=b;i++)')
 let l = l + 1 | call setline(l, '#define Fd(i,a,b) for(int i=a;i>=b;i--)')
-let l = l + 1 | call setline(l, '#define C(a) cout<<a<<endl')
+let l = l + 1 | call setline(l, '#define ALL(x) x.begin(),x.end()')
 let l = l + 1 | call setline(l, '#define SET(a,t) memset(a,t,sizeof(a))')
 let l = l + 1 | call setline(l, '#define SETS(ST) while(!ST.empty()) ST.pop();')
 let l = l + 1 | call setline(l, '#define DEBUG puts("OK")')
+let l = l + 1 | call setline(l, '#define C(a) cout<<"~~"<<a<<"~~"<<endl')
 let l = l + 1 | call setline(l, '#define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} ')
 let l = l + 1 | call setline(l, '')
 let l = l + 1 | call setline(l, '#define FRER freopen("test","r",stdin)')
 let l = l + 1 | call setline(l, '#define FREW freopen("1","w",stdout)')
-let l = l + 1 | call setline(l, '')
-let l = l + 1 | call setline(l, 'template <typename T>')
-let l = l + 1 | call setline(l, 'bool cmp(T a,T b){return a>b;}')
 let l = l + 1 | call setline(l, '')
 let l = l + 1 | call setline(l, 'const int inf = 0x7fffffff;')
 let l = l + 1 | call setline(l, 'const int _inf= 0x8fffffff;')
 let l = l + 1 | call setline(l, 'const LL  INF = 1e18;')
 let l = l + 1 | call setline(l, 'const double EPS = 1e-8;')
 let l = l + 1 | call setline(l, 'const double pi = acos(-1.0);')
-let l = l + 1 | call setline(l, 'const int N=  ;//The Range of Description')
 let l = l + 1 | call setline(l, '')
-let l = l + 1 | call setline(l, '/*')
-let l = l + 1 | call setline(l, '  on ne voit bien qu avec le coeur.l essentiel est invisible pour les yeux')
-let l = l + 1 | call setline(l, '                                                                          */')
+let l = l + 1 | call setline(l, 'double ROUNDF(double x,int n){')
+let l = l + 1 | call setline(l, '	double t1,t2-modf(x,&t1);')
+let l = l + 1 | call setline(l, '	double t3=pow(10,n);')
+let l = l + 1 | call setline(l, '	long t4=long(t2*t3+0.5);')
+let l = l + 1 | call setline(l, '	x=t1+t4/t3;')
+let l = l + 1 | call setline(l, '	return x;')
+let l = l + 1 | call setline(l, '}')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'int gcd(int a,int b){return b==0?a:gcd(b,a%b);}')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '/*-----  on ne voit bien qu avec le coeur.l essentiel est invisible pour les yeux  -----*/')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'void init()')
+let l = l + 1 | call setline(l, '{')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '}')
 let l = l + 1 | call setline(l, '')
 let l = l + 1 | call setline(l, 'void solve()')
 let l = l + 1 | call setline(l, '{')
@@ -160,6 +172,10 @@ let l = l + 1 | call setline(l, '}')
 let l = l + 1 | call setline(l, '')
 let l = l + 1 | call setline(l, 'int main()')
 let l = l + 1 | call setline(l, '{')
+let l = l + 1 | call setline(l, '	//FRER;')
+let l = l + 1 | call setline(l, '	//FREW;')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '	//printf("\nTIME WASTED  %.2f s\n",(double)clock()/CLOCK_PRE_SEC);')
 let l = l + 1 | call setline(l, '    return 0;')
 let l = l + 1 | call setline(l, '}')
 let l = l + 1 | call setline(l, '')
@@ -173,7 +189,7 @@ endfunc
   autocmd FileType c,cpp :set syn=cpp
   "autocmd FileType python :set syn=python	
   set cindent
-  "set incsearch
+  set incsearch
   set hlsearch 
   let &termencoding=&encoding 
   set fileencodings=utf-8,gbk  
