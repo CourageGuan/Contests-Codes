@@ -68,6 +68,31 @@ public:
 	}
 	BIGINT operator-(const BIGINT& b) const {
 		BIGINT c
+		c.s.clear();
+		vector<int>::iterator it;
+		if(*this>b){
+		   	for(it=b.s.begin();it!=b.s.end();++it)
+				c.s.push_back(-(*it));
+			c+=a;
+		}else if(*this<b){
+		   	for(it=s.begin();it!=s.end();++it)
+				c.s.push_back(-(*it));
+			c+=b;
+			c.s[c.s.size()-1]=-c.s[c.s.size()-1];
+		}
+		if(*this==b) c.s.push_back(0);
+		return c;
+	}
+	BIGINT operator*(const BIGINT& b) const {
+	
+	
+	}
+	BIGINT operator/(const BIGINT& b) const {
 
 
+	}
+	BIGINT operator%(const BIGINT& b) const {
+
+
+	}
 };
