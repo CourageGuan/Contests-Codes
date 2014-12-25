@@ -4,10 +4,8 @@
 #include<cstdio>
 #include<cmath>
 #include<algorithm>
-#include<cassert>
 
 using namespace std;
-#define LEN(n) (n!=0)?(int)log10(n)+1:0
 
 class BIGINT{
 public:
@@ -38,10 +36,13 @@ public:
 		return *this;
 	}
 
-  BIGINT operator-(){				//negative 默认不使用，一般用于输出负数。
+  BIGINT operator-(){
     s[s.size()-1]=-s[s.size()-1];
     return *this;
 	}
+	/*BIGINT operator=(const BIGINT& b){
+	  return b;
+	}*/
 
 	bool operator<(const BIGINT b) const{
 		if(s.size()!=b.s.size()) return s.size()<b.s.size();
@@ -68,17 +69,7 @@ public:
 		}
 		return c;
 	}
-	BIGINT operator+(const int& b)const {
-		BIGINT c;
-		c.s.clear();
-		c.s.push_back(b);
-		return *this+c;
-	}
 	BIGINT operator+=(const BIGINT& b){
-		*this=*this+b;
-		return *this;
-	}
-	BIGINT operator+=(const int& b){
 		*this=*this+b;
 		return *this;
 	}
@@ -107,17 +98,7 @@ public:
 		c.s.resize(len);
 		return c;
 	}
-	BIGINT operator-(const int &b)const {
-		BIGINT c;
-		c.s.clear();
-		c.s.push_back(b);
-		return *this-c;
-	}
 	BIGINT operator-=(const BIGINT& b) {
-		*this=*this-b;
-		return *this;
-	}
-	BIGINT operator-=(const int &b){
 		*this=*this-b;
 		return *this;
 	}
@@ -133,87 +114,37 @@ public:
 			}
 		int len=c.s.size();
 		while(--len) if(c.s[len]) break;
+    //cout<<len<<endl;//return c;
 		c.s.resize(len+1);
 		return c;
 	}
-	BIGINT operator*(const int& b) const {
+	//BIGINT operator/(const int b) const {}
+	/*BIGINT operator/(const BIGINT& b) const {
 		BIGINT c;
 		c.s.clear();
-		c.s.push_back(b);
-		return *this*c;
-	}
-	BIGINT operator*=(const BIGINT &b){
-		*this=*this*b;
-		return *this;
-	}
-	BIGINT operator*=(const int &b){
-		*this=*this*b;
-		return *this;
-	}
-	BIGINT operator/(const int& b) const {
-		BIGINT c;
-		c.s.clear();
+		if(*this<b){
+			c.s.push_back(0);
+			return c;
+		}
+		if(*this=b){
+			c.s.push_back(1);
+			return c;
+		}
+		int x=0,t=0;
 		c.s.resize(s.size(),0);
-		assert(b!=0);	
-		long long t=s[s.size()-1];
-		for(int i=s.size()-1;i>=0;i--){
-			if(i==0) {c.s[i]=t/b;break;}
-			c.s[i]=t/b;
-			t=(long long)((long long)(t%b)*BASE+s[i-1]);
+		while(1){
+			x++;
+			if(x>BASE){
+				t++;
+				x-=BASE;
+				c.s.[t]+=x
+			}
+			*this-=b;
+			if(*this<b) break;
 		}
-		int len=c.s.size();
-		while(--len) if(c.s[len]) break;
-		c.s.resize(len+1);
-		return c;
-    }
-	BIGINT operator/(const BIGINT& b) const {
-		BIGINT c;
-		c.s.clear();
-		if(*this<b){c.s.push_back(0); return c;}
-		if(*this==b){c.s.push_back(1);return c;}
-		BIGINT low=1,high=*this,mid=(high+low)/2;
-		int t=0;
-		while(high>low){
-			BIGINT a=mid*b;
-			if(a<=*this && *this-a<b) break;
-			if(a>*this) {high=mid;mid=(high+low)/2;}
-			if(a<*this && *this-a>=b) {low=mid;mid=(high+low+1)/2;}
-			//cout<<low.s[0]<<" "<<mid.s[0]<<" "<<high.s[0]<<endl;
-		}
-		c=mid;
-		int len=c.s.size();
-		while(--len) if(c.s[len]) break;
-		c.s.resize(len+1);
-		return c;
-	}
-	BIGINT operator/=(const int& b){
-		*this=*this/b;
-		return *this;
-	}
-	BIGINT operator/=(const BIGINT& b){
-		*this=*this/b;
-		return *this;
-	}
-	BIGINT operator%(const int &b){
-		return *this-(*this/b)*b;
-	}
-	BIGINT operator%(const BIGINT& b){
-		return *this-(*this/b)*b;
-	}
+	}*/
+	//BIGINT operator%(const BIGINT& b) const {	}
 };
-
-BIGINT power(const BIGINT &a,const int &b) {
-	BIGINT c;
-	c.s.clear();
-	if(b==0) {c.s.push_back(1);return c;}
-	c.s.resize((int)pow(a.s.size(),b),0);
-	for(int i=0;i<a.s.size();i++) c.s[i]=a.s[i];
-	for(int i=1;i<b;i++) c*=a;
-	int len=c.s.size();
-	while(--len) if(c.s[len]) break;
-	c.s.resize(len+1);
-	return c;
-}
 
 ostream& operator << (ostream &out,const BIGINT &x){
 	for(int i=x.s.size()-1;i>=0;i--){
@@ -236,11 +167,8 @@ istream& operator >> (istream& in,BIGINT& x){
 
 int main()
 {
-	//freopen("bigint.in","r",stdin);
-	BIGINT x;
-	BIGINT y;
-	cin>>x>>y;
-	cout<<(x%y);
+	BIGINT x,y;
+	while(cin>>x>>y) cout<<x*y<<endl;
 	return 0;
 }
 
