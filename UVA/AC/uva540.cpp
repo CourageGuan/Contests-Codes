@@ -53,14 +53,12 @@ int gcd(int a,int b){return b==0?a:gcd(b,a%b);}
 const int N=1005;
 
 queue<int> T,Team[N];
-set<int> S;			//存团队标号
 MII PT;	//Peo->Team;
 int t;
 
 void init()
 {
 	PT.clear();
-	S.clear();
 	SETS(T);
 	F(i,1,t) SETS(Team[i]);
 }
@@ -112,7 +110,7 @@ int main()
 		}
 		puts("");
 	}
-	//printf("\nTIME WASTED  %.2f s\n",(double)clock()/CLOCK_PRE_SEC);
+	//printf("\nTIME WASTED  %.2f s\n",(double)clock()/CLOCKS_PER_SEC);
     return 0;
 }
 
