@@ -1,3 +1,4 @@
+/*思路大致正确，判断过程较繁琐，细节存在偏差*/
 #include<cstdio>
 #include<utility>
 #include<set>
