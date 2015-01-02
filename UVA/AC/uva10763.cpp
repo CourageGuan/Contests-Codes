@@ -1,9 +1,4 @@
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- & Author: GYH
- & Created Time:  2015年01月02日 星期五 16时47分59秒
- & File Name: define.cpp
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+/*用一个数对和数字的映射记录　顺序对+1　逆序对-1　最后所有映射全为零则为YES*/
 //#pragma comment(linker, "/STACK:1024000000,1024000000")
 #include <iostream>
 #include <cmath>
@@ -16,11 +11,10 @@
 #include <list>
 #include <vector>
 #include <stack>
-#include <queue>
 #include <set>
 #include <map>
-#include <string>
 #include <utility>
+#include <string>
 using namespace std;
 
 typedef long long LL;
@@ -39,34 +33,36 @@ typedef pair<int,int> PII;
 #define fi first
 #define se second
 
-#define DEBUG
-#ifdef DEBUG
-	#define debug(args...) do{cerr<<#args<<":"; dbg,args; cerr<<endl;}while(0) 
-	#define OK puts("OK")
-	#define C(a) cout<<"~~"<<a<<"~~"<<endl
-	#define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} 
-#else
-	#define debug(args...)
-	#define OK
-	#define C(a)
-	#define PM(a,x,y)
-#endif
-
-struct debugger{
-	template<typename T> debugger& operator , (const T& v){
-		cerr<<v<<" ";
-		return *this;
-	}
-} dbg;
-
 //#define FRE
 #ifdef FRE
 	#define FRER freopen("test","r",stdin)
 	#define FREW freopen("1","w",stdout)
 #else
-	#define FRER
-	#define FREW
+	#define FRER 
+	#define FREW 
 #endif
+
+//#define DEBUG
+#ifdef DEBUG
+	#define debug(args...) do {cerr << #args << ": "; dbg,args; cerr << endl;} while(0)
+	#define OK puts("OK")
+	#define C(a) cout<<"~~"<<a<<"~~"<<endl
+	#define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} 
+#else
+    #define debug(args...)              
+	#define OK 
+	#define C(a) 
+	#define PM(a,x,y)  
+#endif
+
+struct debugger
+{
+    template<typename T> debugger& operator , (const T& v)
+    {    
+	    cerr<<v<<" ";    
+	    return *this;    
+	}
+} dbg;
 
 const int mv4[4][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}};
 const int mv8[8][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}, {1,1}, {1,-1}, {-1,1}, {-1,-1}};
@@ -88,21 +84,45 @@ int gcd(int a,int b){return b==0?a:gcd(b,a%b);}
 
 /*-----  on ne voit bien qu avec le coeur.l essentiel est invisible pour les yeux  -----*/
 
+vector<PII> vp;
+map<PII,int> link;
+int n;
 
 void init()
 {
-
+	vp.clear();
+	link.clear();
 }
 
 void solve()
 {
-
+	vector<PII>::iterator it;
+	for(it=vp.begin();it!=vp.end();it++)
+		if(link[*it]!=0){
+			puts("NO");
+			return;
+		}
+	puts("YES");
 }
 
 int main()
 {
-	//FRER;
+	FRER;
 	//FREW;
+	while(cin>>n && n)	
+	{
+		init();
+		F(i,1,n)
+		{
+			int a,b;
+			cin>>a>>b;
+			PII p=mp(a,b),pp=mp(b,a);
+			vp.pb(p);
+			link[p]++;
+			link[pp]--;
+		}
+		solve();
+	}
 	//printf("\nTIME WASTED  %.2f s\n",(double)clock()/CLOCKS_PER_SEC);
     return 0;
 }

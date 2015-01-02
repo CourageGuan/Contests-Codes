@@ -88,12 +88,12 @@ imap <c-]> {<cr>}<c-o>O<left><right>
  
 map <C-A> ggVG"+y
 
-imap <c-]> {<cr>}<c-o>O<left><right>
-inoremap ( ()<LEFT>
-inoremap [ []<LEFT>
-inoremap { {}<LEFT>
-inoremap " ""<LEFT>
-inoremap ' ''<LEFT>
+"imap <c-]> {<cr>}<c-o>O<left><right>
+"inoremap (()<LEFT>
+"inoremap [[]<LEFT>
+"inoremap {{}<LEFT>
+"inoremap """<LEFT>
+"inoremap '''<LEFT>
 
 "F2插入模板
 map <F2> :call SetTitle()<CR>
@@ -116,11 +116,12 @@ let l = l + 1 | call setline(l, '')
 let l = l + 1 | call setline(l, '#include <algorithm>')
 let l = l + 1 | call setline(l, '#include <list>')
 let l = l + 1 | call setline(l, '#include <vector>')
-let l = l + 1 | call setline(l, '#include <stack>')
+let l = l + 1 | call setline(l, '#include <stack>') 
 let l = l + 1 | call setline(l, '#include <queue>')
 let l = l + 1 | call setline(l, '#include <set>')
 let l = l + 1 | call setline(l, '#include <map>')
 let l = l + 1 | call setline(l, '#include <string>')
+let l = l + 1 | call setline(l, '#include <utility>')
 let l = l + 1 | call setline(l, 'using namespace std;')
 let l = l + 1 | call setline(l, '')
 let l = l + 1 | call setline(l, 'typedef long long LL;')
@@ -131,16 +132,45 @@ let l = l + 1 | call setline(l, 'typedef pair<int,int> PII;')
 let l = l + 1 | call setline(l, '')
 let l = l + 1 | call setline(l, '#define F(i,a,b) for(int i=a;i<=b;i++)')
 let l = l + 1 | call setline(l, '#define Fd(i,a,b) for(int i=a;i>=b;i--)')
-let l = l + 1 | call setline(l, '#define ALL(x) x.begin(),x.end()')
 let l = l + 1 | call setline(l, '#define SET(a,t) memset(a,t,sizeof(a))')
 let l = l + 1 | call setline(l, '#define SETS(ST) while(!ST.empty()) ST.pop();')
-let l = l + 1 | call setline(l, '#define DEBUG puts("OK")')
-let l = l + 1 | call setline(l, '#define C(a) cout<<"~~"<<a<<"~~"<<endl')
-let l = l + 1 | call setline(l, '#define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} ')
+let l = l + 1 | call setline(l, '#define ALL(x) x.begin(),x.end()')
+let l = l + 1 | call setline(l, '#define pb push_back')
+let l = l + 1 | call setline(l, '#define mp make_pair')
+let l = l + 1 | call setline(l, '#define fi first')
+let l = l + 1 | call setline(l, '#define se second')
 let l = l + 1 | call setline(l, '')
-let l = l + 1 | call setline(l, '#define FRER freopen("test","r",stdin)')
-let l = l + 1 | call setline(l, '#define FREW freopen("1","w",stdout)')
+let l = l + 1 | call setline(l, '//#define DEBUG')
+let l = l + 1 | call setline(l, '#ifdef DEBUG')
+let l = l + 1 | call setline(l, '	#define debug(args...) do{cerr<<#args<<":"; dbg,args; cerr<<endl;}while(0) ')
+let l = l + 1 | call setline(l, '	#define OK puts("OK")')
+let l = l + 1 | call setline(l, '	#define C(a) cout<<"~~"<<a<<"~~"<<endl')
+let l = l + 1 | call setline(l, '	#define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} ')
+let l = l + 1 | call setline(l, '#else')
+let l = l + 1 | call setline(l, '	#define debug(args...)')
+let l = l + 1 | call setline(l, '	#define OK')
+let l = l + 1 | call setline(l, '	#define C(a)')
+let l = l + 1 | call setline(l, '	#define PM(a,x,y)')
+let l = l + 1 | call setline(l, '#endif')
 let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'struct debugger{')
+let l = l + 1 | call setline(l, '	template<typename T> debugger& operator , (const T& v){')
+let l = l + 1 | call setline(l, '		cerr<<v<<" ";')
+let l = l + 1 | call setline(l, '		return *this;')
+let l = l + 1 | call setline(l, '	}')
+let l = l + 1 | call setline(l, '} dbg;')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '//#define FRE')
+let l = l + 1 | call setline(l, '#ifdef FRE')
+let l = l + 1 | call setline(l, '	#define FRER freopen("test","r",stdin)')
+let l = l + 1 | call setline(l, '	#define FREW freopen("1","w",stdout)')
+let l = l + 1 | call setline(l, '#else')
+let l = l + 1 | call setline(l, '	#define FRER')
+let l = l + 1 | call setline(l, '	#define FREW')
+let l = l + 1 | call setline(l, '#endif')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'const int mv4[4][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}};')
+let l = l + 1 | call setline(l, 'const int mv8[8][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}, {1,1}, {1,-1}, {-1,1}, {-1,-1}};')
 let l = l + 1 | call setline(l, 'const int inf = 0x7fffffff;')
 let l = l + 1 | call setline(l, 'const int _inf= 0x8fffffff;')
 let l = l + 1 | call setline(l, 'const LL  INF = 1e18;')
