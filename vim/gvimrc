@@ -209,6 +209,25 @@ let l = l + 1 | call setline(l, '    return 0;')
 let l = l + 1 | call setline(l, '}')
 let l = l + 1 | call setline(l, '')
 endfunc
+map <F3> :call Maker()<CR>
+func Maker()
+let l = 0
+let l = l + 1 | call setline(l, '#include <iostream>')
+let l = l + 1 | call setline(l, '#include <cstdio>')
+let l = l + 1 | call setline(l, '#include <ctime>')
+let l = l + 1 | call setline(l, '#include <cstdlib>')
+let l = l + 1 | call setline(l, '#include <string>')
+let l = l + 1 | call setline(l, 'using namespace std;')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'int main()')
+let l = l + 1 | call setline(l, '{')
+let l = l + 1 | call setline(l, '	srand(time(0));')
+let l = l + 1 | call setline(l, '	freopen("test","w",stdout);')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '	return 0;')
+let l = l + 1 | call setline(l, '}')
+endfunc
  
   "colorscheme desert
   "set autoindent
