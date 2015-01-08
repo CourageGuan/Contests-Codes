@@ -1,10 +1,8 @@
-/*用栈来处理表达式，应该是一种通用的办法，后续总结
-　遇到')'时弹出两个元素计算(注意后出栈的在前)，
-　再将结果压入栈内*/
+/*又一道链表题，果然很难操作，不确定因素太多*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  & Author: GYH
- & Created Time:  2015年01月08日 星期四 09时35分37秒
- & File Name: uva442.cpp
+ & Created Time:  2015年01月08日 星期四 10时26分21秒
+ & File Name: uva12657.cpp
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 //#pragma comment(linker, "/STACK:1024000000,1024000000")
@@ -38,7 +36,7 @@ typedef pair<int,int> PII;
 #define F(i,a,b) for(int (i)=(a);(i)<=(b);(i)++)
 #define Fd(i,a,b) for(int (i)=(a);(i)>=(b);(i)--)
 #define Fit(i,a) for(__typeof((a).begin()) i=a.begin(); i!=(a).end(); ++i)
-#define SET(a,t) memset((a),(t),sizeof(a))
+#define SET(a,t) memset(a,t,sizeof(a))
 #define SETS(ST) while(!ST.empty()) ST.pop();
 #define ALL(x) x.begin(),x.end()
 #define pb push_back
@@ -94,51 +92,133 @@ int gcd(int a,int b){return b==0?a:gcd(b,a%b);}
 
 /*-----  on ne voit bien qu avec le coeur.l essentiel est invisible pour les yeux  -----*/
 
-struct matrix{
-	int a,b;
-	matrix(int a=0,int b=0):a(a),b(b){}
-} m[30];
+int _right[123456],_left[123456];
+int m,n;
+bool ltor;
 
-stack<matrix> st;
+void link(int x,int y)
+{
+	_left[y]=x;_right[x]=y;
+}
+
+void init()
+{
+	SET(_right,0);
+	SET(_left,0);
+	_right[0]=1;
+	_left[n+1]=n;
+	F(i,1,n){
+		_right[i]=i+1;
+		_left[i]=i-1;
+	}
+	ltor=true;
+}
+
+
+void linkl(int x,int y)
+{
+	if(_left[y]==x) return;
+	if(_right[y]==x)
+		_right[y]=_right[x];
+	_right[_left[x]]=_right[x];
+	_left[_right[x]]=_left[x];
+	_right[_left[y]]=x;
+	_left[x]=_left[y];
+	_left[y]=x;
+	_right[x]=y;
+}
+
+void linkr(int x,int y)
+{
+	if(_right[y]==x) return;
+	if(_left[y]==x)
+		_left[y]=_left[x];
+	_right[_left[x]]=_right[x];
+	_left[_right[x]]=_left[x];
+	_left[_right[y]]=x;
+	_right[x]=_right[y];
+	_right[y]=x;
+	_left[x]=y;
+}
+
+void _swap(int x,int y)
+{
+	int lx=_left[x],rx=_right[x],
+	    ly=_left[y],ry=_right[y];
+	if(lx==y){
+		_left[y]=ry;
+		_right[y]=rx;
+		_left[x]=ly;
+		_right[x]=lx;
+		_right[ly]=x;
+		_left[rx]=y;
+		return;
+	}
+	if(ly==x){
+		_left[y]=lx;
+		_right[y]=ly;
+		_left[x]=rx;
+		_right[x]=ry;
+		_right[lx]=y;
+		_left[ry]=x;
+		return;
+	}
+	link(ly,x);
+	link(x,ry);
+	link(lx,y);
+	link(y,rx);
+}
+
+void solve(int op,int x,int y)
+{
+	switch(op)
+	{
+		case 4:ltor=!ltor;return;
+		case 1:
+			   if(ltor) linkl(x,y);
+			   else linkr(x,y);
+			   break;
+		case 2:
+			   if(ltor) linkr(x,y);
+			   else linkl(x,y);
+			   break;
+		case 3:_swap(x,y);break;
+	}
+}
+
+long long sum(){
+	long long ans=0;
+	//F(i,0,n+1) debug(i,_left[i],_right[i]);
+	if(ltor)
+		for(int i=_right[0];(i!=n+1) && (i!=0);i=_right[_right[i]]) {
+			ans+=i;
+		}
+	else
+		for(int i=_left[n+1];i!=0;i=_left[_left[i]]) ans+=i;
+	return ans;
+}
+
 
 int main()
 {
 	FRER;
 	//FREW;
-	int n;
-	scanf("%d",&n);
-	F(i,0,n-1){
-		char ch[3];
-		scanf("%s",ch);
-		scanf("%d %d",&m[ch[0]-'A'].a,&m[ch[0]-'A'].b);
-		//debug(ch[0],m[ch[0]-'A'].a,m[ch[0]-'A'].b);
-	}
-	getchar();
-	char s[12345];
-	while(scanf("%[^\n]%*c",s)==1){
-		int len=strlen(s)-1,ans=0;
-		bool error=false;
-		F(i,0,len){
-			if(s[i]=='(') continue;
-			if(s[i]==')'){
-			   matrix m2=st.top();st.pop();
-			   matrix m1=st.top();st.pop();
-			   if(m1.b!=m2.a){
-				   error=true;
-				   break;
-			   }
-			   ans+=m1.a*m1.b*m2.b;
-			   st.push(matrix(m1.a,m2.b));
-			   continue;
+	int kase=1;
+	while(scanf("%d%d",&n,&m)==2){
+		init();
+		while(m--){
+			int op;
+			scanf("%d",&op);
+			if(op!=4){
+				int x,y;
+				scanf("%d %d",&x,&y);
+				solve(op,x,y);
 			}
-			st.push(m[s[i]-'A']);
+			else solve(op,0,0);
 		}
-		error?puts("error"):printf("%d\n",ans);
+		printf("Case %d: %lld\n",kase++,sum());
 	}
 	//printf("\nTIME WASTED  %.2f s\n",(double)clock()/CLOCKS_PER_SEC);
     return 0;
 }
-
-
-
 
