@@ -59,11 +59,11 @@ void addnode(int v)
 	p->have_value=true;
 }
 
-void foreach(*Node p)
+void foreach(Node* p)
 {
 	if(p==NULL) return;
 	printf("%d",p->v);
-	foreache(p->lch);
+	foreach(p->lch);
 	foreach(p->rch);
 }
 
