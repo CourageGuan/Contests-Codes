@@ -1,34 +1,25 @@
+/*区间DP，将连续相同的珠子分成几个色块
+  区间两端色块相同时考虑加入色块情况
+  考虑长度为1的区间依次到长度为n的*/
 #include<iostream>
 #include<algorithm>
-#include<climits>
 #include<cstring>
+#include<cstdio>
 #define MAXN 510
-#define LIM INT_MAX>>1
 using namespace std;
 
+const int LIM=0x3f;
 int a[MAXN],b[MAXN],c[MAXN];
 int f[MAXN][MAXN];
 
-int dp(int x,int y)		//����DP 
-{
-	if(x>y) 
-		return(LIM);
-	if(f[x][y]<LIM) 
-		return(f[x][y]);
-	if (a[x]==a[y])
-		f[x][y]=min(f[x][y],max(3-b[x]-b[y],0))+dp(x+1,y-1);
-	for(int i=x;i<y;i++)
-		f[x][y]=min(f[x][y],dp(x,i)+dp(i+1,y));
-	return f[x][y];
-}
-
 int main()
 {
-	memset(f,LIM,sizeof(f));
+	//freopen("test","r",stdin);
+	memset(f,0x3f,sizeof(f));
 	//cout<<f[0][0]<<endl;
 	int n,l=0;
 	cin>>n;
-	c[0]=-LIM;
+	c[0]=-1;
 	for(int i=1;i<=n;i++)
 	{
 		cin>>c[i];
@@ -42,12 +33,23 @@ int main()
 		else
 			b[l]++;
 	}
-	f[l][l]=max(3-b[l],1);
-	/*cout<<l<<endl;
+	/*for(int i=1;i<=l;i++)
+		cout<<a[i]<<" "<<b[i]<<endl;*/
 	for(int i=1;i<=l;i++)
-    	cout<<a[i]<<" "<<b[i]<<endl;*/
-	cout<<dp(1,l)<<endl;
+		f[i][i]=max(3-b[i],1);
+	for(int j=1;j<=l-1;++j)
+		for(int i=1;j+i<=l;++i){
+			if(a[i]==a[i+j])
+				f[i][i+j]=((b[i]+b[i+j]==2)?1:0)+f[i+1][i+j-1];
+			for(int k=1;k<=j;++k)
+				f[i][i+j]=min(f[i][i+j],f[i][i+k-1]+f[i+k][i+j]);
+	}
+	/*for(int i=1;i<=l;++i){
+		for(int j=1;j<=l;++j)
+			cout<<f[i][j]<<" ";
+		cout<<endl;
+	}*/
+	cout<<f[1][l]<<endl;
 	return 0;	
 }
-
 

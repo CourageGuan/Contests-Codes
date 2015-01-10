@@ -81,6 +81,17 @@ Node* create(int dis,int l1,int r1,int l2,int r2)	//n nodes
 	p->rch=create(p->dis,cnt+1,r1,l2+num,r2-1);	//根节点右边[cnt+1,r1] [l2,r2-1]      (右子树部分)
 }
 
+Node* build()	//递归构建,有时不需要树结构
+{
+	int v;
+	scanf("%d",&v);
+	if(!v) return NULL;
+	Node* p;
+	p->v=v;
+	p->lch=build();
+	p->rch=build();
+	return p;
+}
 
 int main()
 {
