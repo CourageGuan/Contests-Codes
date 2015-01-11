@@ -8,14 +8,14 @@ const int maxn=123;
 const int mv4[4][2]={{0,-1},{0,1},{-1,0},{1,0}};
 queue<pair<int,int> > q;
 int pic[maxn][maxn],dis[maxn][maxn],m,n;
-bool have_ar[maxn][maxn];
+bool vis[maxn][maxn];
 
 void bfs(int d,int x,int y)
 {
 	pair<int,int> p=make_pair(x,y);
 	q.push(p);
 	dis[x][y]=d;
-	have_ar[x][y]=1;
+	vis[x][y]=1;
 	while(!q.empty()){
 		p=q.front();
 		q.pop();
@@ -23,8 +23,8 @@ void bfs(int d,int x,int y)
 		for(int i=0;i<4;i++){
 			x=p.first+mv4[i][0];
 			y=p.second+mv4[i][1];
-			if(!pic[x][y] || have_ar[x][y] || x<0 || x>=n || y<0 || y>=m) continue;
-			have_ar[x][y]=1;
+			if(!pic[x][y] || vis[x][y] || x<0 || x>=n || y<0 || y>=m) continue;
+			vis[x][y]=1;
 			dis[x][y]=d;
 			pair<int,int> pa=make_pair(x,y);
 			q.push(pa);
@@ -36,7 +36,7 @@ int main()
 {
 	freopen("test","r",stdin);
 	memset(pic,0,sizeof(pic));
-	memset(have_ar,0,sizeof(have_ar));
+	memset(vis,0,sizeof(vis));
 	memset(dis,0,sizeof(dis));
 	cin>>n>>m;
 	for(int i=0;i<n;i++)
