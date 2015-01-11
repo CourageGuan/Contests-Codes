@@ -8,15 +8,14 @@
 #define MAXN 510
 using namespace std;
 
-const int LIM=0x3f;
+const int LIM=100;
 int a[MAXN],b[MAXN],c[MAXN];
 int f[MAXN][MAXN];
 
 int main()
 {
 	//freopen("test","r",stdin);
-	memset(f,0x3f,sizeof(f));
-	//cout<<f[0][0]<<endl;
+	memset(f,LIM,sizeof(f));
 	int n,l=0;
 	cin>>n;
 	c[0]=-1;
@@ -40,7 +39,7 @@ int main()
 	for(int j=1;j<=l-1;++j)
 		for(int i=1;j+i<=l;++i){
 			if(a[i]==a[i+j])
-				f[i][i+j]=((b[i]+b[i+j]==2)?1:0)+f[i+1][i+j-1];
+				f[i][i+j]=((b[i]+b[i+j]<3)?1:0)+f[i+1][i+j-1];
 			for(int k=1;k<=j;++k)
 				f[i][i+j]=min(f[i][i+j],f[i][i+k-1]+f[i+k][i+j]);
 	}
