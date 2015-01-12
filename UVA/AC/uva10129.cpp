@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 /*将单词视为一条有向路径,判断是否构成欧拉回路，一是判断是否是回路，二是判断节点的入度和出度*/
+=======
+>>>>>>> 9b556abebc914e12bdab6aad3c40becb755945b4
 #include<iostream>
 #include<cstring>
 #include<cstdio>
