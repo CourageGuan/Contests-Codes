@@ -1,7 +1,8 @@
 #include<cstdio>
 const int maxn=100;
+int n;
 
-void print(int n,int i,int p[])
+void print(int i,int p[])
 {
 	int j=0;
 	while(j<n){
@@ -19,7 +20,7 @@ int main()
 	// A&B 交集  A|B 并集  A^B 对称差集(只存在于A和只存在于B的元素)  ALL_BITS^A 补集
 	for(int i=0;i<n;++i) scanf("%d",&p[i]);
 	for(int i=0;i<(1<<n);++i)
-		print(n,i,p);
+		print(i,p);
 	return 0;
 }
 
