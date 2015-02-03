@@ -1,3 +1,4 @@
+/*写残，计划重写*/
 #include<iostream>
 #include<cstring>
 #include<vector>
