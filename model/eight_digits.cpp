@@ -49,7 +49,7 @@ bool try_to_insert(int s)
 int bfs()
 {
 	//init();
-	init_lookup_table();	
+	init_lookup_table();
 	int front=1,rear=2;
 	father[1]=0;
 	while(front<rear){
@@ -100,7 +100,6 @@ int main()
 	printf("%d\n",dis[ans]);
 	return 0;
 }
-
 
 
 
