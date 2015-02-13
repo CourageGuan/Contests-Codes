@@ -15,7 +15,6 @@ bool prime(int n)
 
 bool solve(int m)
 {
-	if(prime(m)) return false;
 	for(int i=2;i<=(int)sqrt(m)+1;++i)
 		if(m%i==0 && prime(i) && prime(m/i)) return true;
 	return false;
