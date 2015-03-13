@@ -1,3 +1,6 @@
+//设定一个点为加入m个点后的等分点的起点
+//然后可知下面的每一个点的位置都在整数上 1..n+m
+//然后再计算每个点要移动的最小距离
 #include<cstdio>
 #include<iostream>
 #include<cmath>
