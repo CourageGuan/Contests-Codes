@@ -1,3 +1,5 @@
+//贪心，尽量使时间长的j先执行，假定一条时间轴
+//证明: 若按上述要求排列，任意交换两个元素，情况不会更优(时间长的会在轴上变得更长)
 #include<cstdio>
 #include<iostream>
 #include<algorithm>

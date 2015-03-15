@@ -46,6 +46,10 @@ endif
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden		" Hide buffers when they are abandoned
 set mouse=a		" Enable mouse usage (all modes)
+
+  "mswin.vim 插件提供windows下的编辑快捷键功能
+  source $VIMRUNTIME/mswin.vim
+  behave mswin
   
   set autoindent
   set number
@@ -61,8 +65,11 @@ set mouse=a		" Enable mouse usage (all modes)
   autocmd FileType c,cpp,python :set shiftwidth=2
   autocmd FileType c,cpp,python :set tabstop=4
   autocmd FileType c,cpp,python :set backspace=indent,eol,start
-  set guifont=Courier_new:h14:b:cANSI
+  set statusline=[%n]%<%f%y%h%m%r%=\ %l\ of\ %L,%c 
+  set guifont=courier_new:h13  
   set cin
+
+  map <C-A> ggVG"+y
 
   filetype on 
   filetype plugin on 
