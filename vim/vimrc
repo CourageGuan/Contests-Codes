@@ -47,6 +47,9 @@ endif
 "set hidden		" Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
 
+"mswin.vim 插件提供windows下的编辑快捷键功能
+"source $VIMRUNTIME/mswin.vim
+"behave mswin
 
 colo desert
 syntax on
@@ -63,6 +66,7 @@ set syn=cpp
 
 "字体
 set guifont=DejaVuSans\Mono\ 12
+"windows下 set guifont=courier_new:h12  
 set shortmess=atI   " 关闭启动提示 
 winpos 400 400      " 设定窗口位置  
 set lines=60 columns=100    " 设定窗口大小  
@@ -72,20 +76,13 @@ set laststatus=2 " 显示状态栏 (默认值为 1, 无法显示状态栏)
 set statusline=[%n]%<%f%y%h%m%r%=\ %l\ of\ %L,%c 
 " 设置在状态行显示的信息
 
-"F9编译运行cpp
+"F9编译运行
 map <F9> :call CR()<CR>
 func! CR()
-	exec "w"
-	exec "!g++ -O2 -g  % -o %<"
-	exec "! ./%<"   
+exec "w"
+exec "!g++ -O2 -g  % -o %<"
+exec "! ./%<"   
 endfunc
-
-"F8运行python
-map <F8> :call RunPython()<CR>
-func! RunPython()  
-	exec "w"  
-	exec "!python %"  
-endfunc  
  
 imap <c-]> {<cr>}<c-o>O<left><right>
  

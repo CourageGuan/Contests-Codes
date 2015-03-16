@@ -45,38 +45,267 @@ endif
 "set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden		" Hide buffers when they are abandoned
-set mouse=a		" Enable mouse usage (all modes)
+"set mouse=a		" Enable mouse usage (all modes)
 
-  "mswin.vim Êèí‰ª∂Êèê‰æõwindows‰∏ãÁöÑÁºñËæëÂø´Êç∑ÈîÆÂäüËÉΩ
-  source $VIMRUNTIME/mswin.vim
-  behave mswin
-  
-  set autoindent
-  set number
-  autocmd FileType c,cpp,python :set go=
-  autocmd FileType c,cpp,python :syntax on
+"mswin.vim ≤Âº˛Ã·π©windowsœ¬µƒ±‡º≠øÏΩ›º¸π¶ƒ‹
+"source $VIMRUNTIME/mswin.vim
+"behave mswin
+
+colo desert
+syntax on
+set nu
+set history=1000000
+set tabstop=4 
+set shiftwidth=4
+set smarttab
+set cindent
+set nobackup
+set noswapfile
+set mouse=a
+set syn=cpp
+
+"◊÷ÃÂ
+set guifont=courier_new:h12  
+set shortmess=atI   " πÿ±’∆Ù∂ØÃ· æ 
+winpos 400 400      " …Ë∂®¥∞ø⁄Œª÷√  
+set lines=60 columns=100    " …Ë∂®¥∞ø⁄¥Û–°  
+set guioptions-=T           " “˛≤ÿπ§æﬂ¿∏
+set guioptions-=m           " “˛≤ÿ≤Àµ•¿∏
+set laststatus=2 " œ‘ æ◊¥Ã¨¿∏ (ƒ¨»œ÷µŒ™ 1, Œﬁ∑®œ‘ æ◊¥Ã¨¿∏)
+set statusline=[%n]%<%f%y%h%m%r%=\ %l\ of\ %L,%c 
+" …Ë÷√‘⁄◊¥Ã¨––œ‘ æµƒ–≈œ¢
+
+imap <c-]> {<cr>}<c-o>O<left><right>
+ 
+map <C-A> ggVG"+y
+
+"imap <c-]> {<cr>}<c-o>O<left><right>
+"inoremap (()<LEFT>
+"inoremap [[]<LEFT>
+"inoremap {{}<LEFT>
+"inoremap """<LEFT>
+"inoremap '''<LEFT>
+
+"F2≤Â»Îƒ£∞Â
+map <F2> :call SetTitle()<CR>
+func SetTitle()
+let l = 0
+let l = l + 1 | call setline(l, '/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+let l = l + 1 | call setline(l, ' & Author: GYH')
+let l = l + 1 | call setline(l, ' & Created Time:  '.strftime('%c'))
+let l = l + 1 | call setline(l, ' & File Name: '.expand('%'))
+let l = l + 1 | call setline(l, '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '//#pragma comment(linker, "/STACK:1024000000,1024000000")')
+let l = l + 1 | call setline(l, '#include <iostream>')
+let l = l + 1 | call setline(l, '#include <cmath>')
+let l = l + 1 | call setline(l, '#include <cstdio>')
+let l = l + 1 | call setline(l, '#include <cstdlib>')
+let l = l + 1 | call setline(l, '#include <cstring>')
+let l = l + 1 | call setline(l, '#include <ctime>')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '#include <algorithm>')
+let l = l + 1 | call setline(l, '#include <list>')
+let l = l + 1 | call setline(l, '#include <vector>')
+let l = l + 1 | call setline(l, '#include <stack>') 
+let l = l + 1 | call setline(l, '#include <queue>')
+let l = l + 1 | call setline(l, '#include <set>')
+let l = l + 1 | call setline(l, '#include <map>')
+let l = l + 1 | call setline(l, '#include <string>')
+let l = l + 1 | call setline(l, '#include <utility>')
+let l = l + 1 | call setline(l, 'using namespace std;')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'typedef long long LL;')
+let l = l + 1 | call setline(l, 'typedef vector<int> VI;')
+let l = l + 1 | call setline(l, 'typedef map<string,int> MSI;') 
+let l = l + 1 | call setline(l, 'typedef map<int,int> MII;')
+let l = l + 1 | call setline(l, 'typedef pair<int,int> PII;')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '#define LEN(n) (int)log10(n)+1')
+let l = l + 1 | call setline(l, '#define max(a,b) ((a)>(b))?(a):(b)')
+let l = l + 1 | call setline(l, '#define min(a,b) ((a)<(b))?(a):(b)')
+let l = l + 1 | call setline(l, '#define F(i,a,b) for(int (i)=(a);(i)<=(b);++i)')
+let l = l + 1 | call setline(l, '#define Fd(i,a,b) for(int (i)=(a);(i)>=(b);--i')
+let l = l + 1 | call setline(l, '#define Fit(i,a) for(__typeof((a).begin()) i=a.begin(); i!=(a).end(); ++i)')
+let l = l + 1 | call setline(l, '#define SET(a,t) memset((a),(t),sizeof(a))')
+let l = l + 1 | call setline(l, '#define SETS(ST) while(!ST.empty()) ST.pop();')
+let l = l + 1 | call setline(l, '#define ALL(x) x.begin(),x.end()')
+let l = l + 1 | call setline(l, '#define pb push_back')
+let l = l + 1 | call setline(l, '#define mp make_pair')
+let l = l + 1 | call setline(l, '#define fi first')
+let l = l + 1 | call setline(l, '#define se second')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '#define DEBUG')
+let l = l + 1 | call setline(l, '#ifdef DEBUG')
+let l = l + 1 | call setline(l, '	#define debug(args...) do{cerr<<#args<<":"; dbg,args; cerr<<endl;}while(0) ')
+let l = l + 1 | call setline(l, '	#define OK puts("OK")')
+let l = l + 1 | call setline(l, '	#define C(a) cout<<"~~"<<a<<"~~"<<endl')
+let l = l + 1 | call setline(l, '	#define PM(a,x,y) F(i,0,x){F(j,0,y) cout<<a[i][j]<<" ";cout<<endl;} ')
+let l = l + 1 | call setline(l, 'struct debugger{')
+let l = l + 1 | call setline(l, '	template<typename T> debugger& operator , (const T& v){')
+let l = l + 1 | call setline(l, '		cerr<<v<<" ";')
+let l = l + 1 | call setline(l, '		return *this;')
+let l = l + 1 | call setline(l, '	}')
+let l = l + 1 | call setline(l, '} dbg;')
+let l = l + 1 | call setline(l, '#else')
+let l = l + 1 | call setline(l, '	#define debug(args...)')
+let l = l + 1 | call setline(l, '	#define OK')
+let l = l + 1 | call setline(l, '	#define C(a)')
+let l = l + 1 | call setline(l, '	#define PM(a,x,y)')
+let l = l + 1 | call setline(l, '#endif')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '#define FRE')
+let l = l + 1 | call setline(l, '#ifdef FRE')
+let l = l + 1 | call setline(l, '	#define FRER freopen("test","r",stdin)')
+let l = l + 1 | call setline(l, '	#define FREW freopen("1","w",stdout)')
+let l = l + 1 | call setline(l, '#else')
+let l = l + 1 | call setline(l, '	#define FRER')
+let l = l + 1 | call setline(l, '	#define FREW')
+let l = l + 1 | call setline(l, '#endif')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'const int mv4[4][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}};')
+let l = l + 1 | call setline(l, 'const int mv8[8][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}, {1,1}, {1,-1}, {-1,1}, {-1,-1}};')
+let l = l + 1 | call setline(l, 'const int inf = 0x7fffffff;')
+let l = l + 1 | call setline(l, 'const int _inf= 0x8fffffff;')
+let l = l + 1 | call setline(l, 'const LL  INF = 1e18;')
+let l = l + 1 | call setline(l, 'const double EPS = 1e-8;')
+let l = l + 1 | call setline(l, 'const double pi = acos(-1.0);')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'double ROUNDF(double x,int n){')
+let l = l + 1 | call setline(l, '	double t1,t2=modf(x,&t1);')
+let l = l + 1 | call setline(l, '	double t3=pow(10,n);')
+let l = l + 1 | call setline(l, '	long t4=long(t2*t3+0.5);')
+let l = l + 1 | call setline(l, '	x=t1+t4/t3;')
+let l = l + 1 | call setline(l, '	return x;')
+let l = l + 1 | call setline(l, '}')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'int gcd(int a,int b){return b==0?a:gcd(b,a%b);}')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '/*-----  on ne voit bien qu avec le coeur.l essentiel est invisible pour les yeux  -----*/')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'void init()')
+let l = l + 1 | call setline(l, '{')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '}')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'void solve()')
+let l = l + 1 | call setline(l, '{')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '}')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'int main()')
+let l = l + 1 | call setline(l, '{')
+let l = l + 1 | call setline(l, '	//FRER;')
+let l = l + 1 | call setline(l, '	//FREW;')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '	//printf("\nTIME WASTED  %.2f s\n",(double)clock()/CLOCKS_PER_SEC);')
+let l = l + 1 | call setline(l, '    return 0;')
+let l = l + 1 | call setline(l, '}')
+let l = l + 1 | call setline(l, '')
+endfunc
+
+map <F3> :call Maker()<CR>
+func Maker()
+let l = 0
+let l = l + 1 | call setline(l, '#include <iostream>')
+let l = l + 1 | call setline(l, '#include <cstdio>')
+let l = l + 1 | call setline(l, '#include <ctime>')
+let l = l + 1 | call setline(l, '#include <cstdlib>')
+let l = l + 1 | call setline(l, '#include <string>')
+let l = l + 1 | call setline(l, 'using namespace std;')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, 'int main()')
+let l = l + 1 | call setline(l, '{')
+let l = l + 1 | call setline(l, '	srand(time(0));')
+let l = l + 1 | call setline(l, '	freopen("test","w",stdout);')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '')
+let l = l + 1 | call setline(l, '	return 0;')
+let l = l + 1 | call setline(l, '}')
+endfunc
+ 
+  "colorscheme desert
+  "set autoindent
+  "set number
+  "autocmd FileType c,cpp,python :set go=
+  "autocmd FileType c,cpp,python :syntax on
   autocmd FileType c,cpp :set syn=cpp
-  autocmd FileType python :set syn=python	
+  "autocmd FileType python :set syn=python	
   set cindent
   set incsearch
   set hlsearch 
   let &termencoding=&encoding 
   set fileencodings=utf-8,gbk  
-  autocmd FileType c,cpp,python :set shiftwidth=2
-  autocmd FileType c,cpp,python :set tabstop=4
-  autocmd FileType c,cpp,python :set backspace=indent,eol,start
-  set statusline=[%n]%<%f%y%h%m%r%=\ %l\ of\ %L,%c 
-  set guifont=courier_new:h13  
-  set cin
-
-  map <C-A> ggVG"+y
+  "autocmd FileType c,cpp,python :set shiftwidth=4
+  "autocmd FileType c,cpp,python :set tabstop=4
+  "autocmd FileType c,cpp,python :set backspace=indent,eol,start
 
   filetype on 
   filetype plugin on 
-  filetype indent on 
+  filetype indent on
+
+
+map<F9> :call CompileRun()<CR>
+func CompileRun()
+exec "w"
+if &filetype == 'c'
+exec "!gcc -Wl,-enable-auto-import % -g -o %<.exe"
+elseif &filetype == 'cpp'
+exec "!g++ -Wl,-enable-auto-import % -g -o %<.exe"
+endif
+if &filetype == 'c' || &filetype == 'cpp'
+exec "!%<.exe"
+endif
+endfunc
+
+
+map<F5> :call Debug()<CR>
+func Debug()
+exec "w"
+if &filetype == 'c'
+exec "!gcc % -g -o %<.exe"
+exec "!gdb %<.exe"
+elseif &filetype == 'cpp'
+exec "!g++ % -g -o %<.exe"
+exec "!gdb %<.exe"
+endif
+endfunc
+
 
 " Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
+if filereadable("/home/.vim/vimrc")
+  source /home/.vim/vimrc 
 endif
+
+
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
 
