@@ -98,6 +98,7 @@ let l = l + 1 | call setline(l, '#define EACH(i,a) for(__typeof((a).begin()) i=a
 let l = l + 1 | call setline(l, '')
 let l = l + 1 | call setline(l, '#define FILL(a,t) memset((a),(t),sizeof(a))')
 let l = l + 1 | call setline(l, '#define CLEAR(ST) while(!ST.empty()) ST.pop();')
+let l = l + 1 | call setline(l, '#define SZ(a) ((a).size())')
 let l = l + 1 | call setline(l, '#define all(a) a.begin(),a.end()')
 let l = l + 1 | call setline(l, '#define lowbd(a,x) lower_bound(all(a),x) - a.begin()')
 let l = l + 1 | call setline(l, '#define upbd(a,x) upper_bound(all(a),x) - a.begin()')
