@@ -7,7 +7,7 @@ ll f(int p[],int k,int to)	//当前各圆盘位置  移动第k个圆盘 要移�
 {
 	if(k==0) return 0;
 	if(p[k]==to) return f(p,k-1,to);
-	return f(p,k-1,6-p[k]-to)+ (1LL<<(k-1));
+	return f(p,k-1,6-p[k]-to)+ (1LL<<(k-1));	//c=6-a-b 中转位置
 }
 
 int s[maxn],t[maxn];
