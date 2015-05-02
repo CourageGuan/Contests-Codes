@@ -43,9 +43,9 @@ int main()
 			G.push_back(Edge(min(a,c),max(a,c),b));
 			G.push_back(Edge(min(b,c),max(b,c),a));
 		}
+		memset(d,0,sizeof(d));
 		int ans=0;
 		for(int i=0;i<G.size();++i){
-			memset(d,0,sizeof(d));
 			ans=max(ans,dp(i));
 		}
 		printf("Case %d: maximum height = %d\n",++kase,ans);
