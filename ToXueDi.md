@@ -41,6 +41,23 @@ a0 = 1, ai = aj + ak, i > 0, j, k从[0, i-1]的整数中随机选出（j和k独�
 ###ps
 结论题，(n+1).000000
 
+###Code
+
+	#include<bits/stdc++.h>
+	using namespace std;
+	
+	int main()
+	{
+		freopen("test.txt","r",stdin);
+		int T,kase=0;
+		int n,m;
+		while(scanf("%d",&n)==1){
+			printf("%d.000000\n",n+1);
+		}
+		return 0;
+	}
+
+
 ##Power of Cryptography
 uva113/poj2109
 
@@ -74,4 +91,22 @@ For each integer pair n and p the value k should be printed, i.e., the number k 
 
 ###ps
 看起来要用高精度，实则不然...
+
+###Code
+
+	#include<cstdio>
+	#include<cmath>
+	#include<iostream>
+	
+	double k,p,n;
+	
+	int main()
+	{
+		//freopen("test.txt","r",stdin);
+		while(scanf("%lf %lf",&n,&p)==2){
+			k=pow(p,1/n);	
+			std::cout<<k<<std::endl;
+		}
+		return 0;
+	}
 
