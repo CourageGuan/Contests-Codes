@@ -110,3 +110,81 @@ For each integer pair n and p the value k should be printed, i.e., the number k 
 		return 0;
 	}
 
+##Babelfish
+poj2503
+
+Time Limit: 3000MS		Memory Limit: 65536K
+
+###Description
+
+You have just moved from Waterloo to a big city. The people here speak an incomprehensible dialect of a foreign language. Fortunately, you have a dictionary to help you understand them.
+
+###Input
+
+Input consists of up to 100,000 dictionary entries, followed by a blank line, followed by a message of up to 100,000 words. Each dictionary entry is a line containing an English word, followed by a space and a foreign language word. No foreign word appears more than once in the dictionary. The message is a sequence of words in the foreign language, one word on each line. Each word in the input is a sequence of at most 10 lowercase letters.
+
+###Output
+
+Output is the message translated to English, one word per line. Foreign words not in the dictionary should be translated as "eh".
+
+###Sample Input
+
+dog ogday
+cat atcay
+pig igpay
+froot ootfray
+loops oopslay
+
+atcay
+ittenkay
+oopslay
+
+###Sample Output
+
+cat
+eh
+loops
+
+###Hint
+
+Huge input and output,scanf and printf are recommended.
+
+###Source
+
+Waterloo local 2001.09.22
+
+###ps
+输入相当恶心人
+
+###code
+
+	#include<cstdio>
+	#include<iostream>
+	#include<cstring>
+	#include<string>
+	#include<map>
+	
+	using namespace std;
+	const int maxn=30;
+	map<string,string> mp;
+	char s[maxn];
+	
+	int main()
+	{
+		//freopen("test.txt","r",stdin);
+		mp.clear();
+		while(~scanf("%[^\n]%*c",s) && s[0]!='\0'){
+			//printf("%s\n",s);
+			string ss(s); 
+			//cout<<ss<<endl;
+			mp[ss.substr(ss.find(' ')+1,ss.size())]=ss.substr(0,ss.find(' '));
+			s[0]='\0';
+		}
+		while(~scanf("%s",s)){
+			string S(s);
+			if(mp.count(S)) printf("%s\n",mp[S].c_str());
+			else puts("eh");
+		}
+		return 0;
+	}
+
