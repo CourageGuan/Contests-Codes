@@ -188,3 +188,100 @@ Waterloo local 2001.09.22
 		return 0;
 	}
 
+##Friends
+hdu5305
+
+Time Limit: 2000/1000 MS (Java/Others)    Memory Limit: 65536/65536 K (Java/Others)
+
+
+###Problem Description
+There are n people and m pairs of friends. For every pair of friends, they can choose to become online friends (communicating using online applications) or offline friends (mostly using face-to-face communication). However, everyone in these n people wants to have the same number of online and offline friends (i.e. If one person has x onine friends, he or she must have x offline friends too, but different people can have different number of online or offline friends). Please determine how many ways there are to satisfy their requirements. 
+ 
+
+###Input
+The first line of the input is a single integer T (T=100), indicating the number of testcases. 
+
+For each testcase, the first line contains two integers n (1≤n≤8) and m (0≤m≤n(n−1)2), indicating the number of people and the number of pairs of friends, respectively. Each of the next m lines contains two numbers x and y, which mean x and y are friends. It is guaranteed that x≠y and every friend relationship will appear at most once. 
+ 
+
+###Output
+For each testcase, print one number indicating the answer.
+ 
+
+###Sample Input
+2
+3 3
+1 2
+2 3
+3 1
+4 4
+1 2
+2 3
+3 4
+4 1
+ 
+
+###Sample Output
+0
+2
+ 
+
+###Source
+2015 Multi-University Training Contest 2
+ 
+###ps
+多校的一道题，很考验搜索的基本功。
+
+###code
+
+	#include<cstdio>
+	#include<cstring>
+	
+	const int maxn = 10;
+	int n,m,ans;
+	int e[maxn][maxn],d[maxn];
+	
+	void dfs(int u,int v)
+	{
+		if(u > n) ++ans;
+		else if(v > n)
+		{
+			if(d[u]) return;
+			dfs(u+1,u+2);	
+		}
+		else
+		{
+			if(e[u][v])
+			{
+				++d[u]; ++d[v];
+				dfs(u,v+1);
+				d[u] -= 2; d[v] -= 2;
+				dfs(u,v+1);
+				++d[u]; ++d[v];
+			}
+			else dfs(u,v+1);
+		}
+	}
+	
+	int main()
+	{
+		int T;
+		scanf("%d",&T);
+		while(T--)
+		{
+			scanf("%d %d",&n,&m);
+			memset(e,0,sizeof e);
+			memset(d,0,sizeof d);
+			int u,v;
+			for(int i=0;i<m;++i)
+			{
+				scanf("%d %d",&u,&v);
+				e[u][v] = e[v][u] = 1;
+			}
+			ans = 0;
+			dfs(1,2);
+			printf("%d\n",ans);	
+		}
+	
+	}
+
