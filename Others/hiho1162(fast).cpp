@@ -97,7 +97,7 @@ void dfs(int k,int s1,int s2)
 
 int main()
 {
-	freopen("test.txt","r",stdin);
+	//freopen("test.txt","r",stdin);
 	while(scanf("%lld %lld",&m,&n)==2)
 	{
 		if((n&1) && (m&1))

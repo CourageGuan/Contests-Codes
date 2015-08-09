@@ -8,7 +8,7 @@ using namespace std;
 
 typedef long long LL;
 const int maxn = 15;
-const int maxd = 1000010;
+const int maxd = 100010;
 const int HASH = 10007;
 int pic[maxn][maxn];
 int R,C,tx,ty;
