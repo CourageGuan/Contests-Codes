@@ -11,12 +11,11 @@ int dp(int i,int j)
 {
 	if(i>j) return 0;
 	if(i==j) return 1;
-	if(i+1==j) return 2+(s[i]==s[j]);
 	int& ans=d[i][j];
 	if(ans) return ans;
-	if(s[i]==s[j]) ans=dp(i+1,j)+dp(i,j-1)+1;
-	else ans=dp(i+1,j)+dp(i,j-1)-dp(i+1,j-1);
-	return ans%mod;
+	if(s[i]==s[j]) ans=(dp(i+1,j)+dp(i,j-1)+1)%mod;
+	else ans=(dp(i+1,j)+dp(i,j-1)-dp(i+1,j-1)+mod)%mod;
+	return ans;
 }
 
 int main()
