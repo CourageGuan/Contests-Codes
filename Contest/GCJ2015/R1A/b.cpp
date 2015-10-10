@@ -1,62 +1,59 @@
 #include<cstdio>
-#include<iostream>
 #include<cstring>
 #include<algorithm>
-#include<string>
-#include<map>
-#include<vector>
-#include<set>
 using namespace std;
 typedef long long LL;
-const int maxn=100000+10;
-const LL INF=0x3f3f3f3f3f3f3f3fLL;
-int n,b;
-LL m[maxn];
+const LL INF = 1e12;
+const int maxn = 1000+10;
+LL M[maxn];
+int b;
+LL n;
 
-LL cal(LL t){
-	LL res=0;
-	for(int i=0;i<b;++i) res+=(t/m[i])+(t%m[i]!=0);
-	return res;
-}
 
-LL solve()
+LL cal(LL t)
 {
-	LL l=0,r=INF;
-	LL mid;
-	while(l<=r){
-		 mid=(l+r)/2;
-		if(cal(mid)<n) l=mid+1;
-		else r=mid-1;
-	}
-	//printf("*** %d\n",r);
-//	while(cal(r) == n)
-  //      r--;
-  	cout<<mid<<endl;
-	LL t=cal(mid),cnt=t,ans=0;
-	for(int i=0;i<b;++i){
-		if(mid%m[i]==0){
-			++cnt;
-			if(cnt==n){
-				ans=i;
-				break;
-			}
-		}
-	}
-	return ans+1;
+    LL cnt = 0;
+    for(int i = 0;i < b;++i)
+        cnt += t / M[i] + (LL)(t%M[i] != 0);
+     return cnt;
 }
 
 
 int main()
 {
-  //  freopen("./test.txt","r",stdin);
-	//freopen("./B-small-attempt0.in","r",stdin);
-    //freopen("./b.out","w",stdout);
-	int T,kase=0;
-	scanf("%d",&T);
-	while(T--){
-		scanf("%d %d",&b,&n);
-		for(int i=0;i<b;++i) scanf("%lld",m+i);
-		printf("Case #%d: %lld\n",++kase,solve());
-	}
-	return 0;
+    //freopen("./test.txt","r",stdin);
+    freopen("./B-small-attempt1.in","r",stdin);
+    freopen("./b.out","w",stdout);
+    int kase;
+    scanf("%d",&kase);
+    for(int z = 1;z <= kase;++z)
+    {
+        scanf("%d %lld",&b,&n);
+        for(int i = 0;i < b;++i)
+            scanf("%lld",&M[i]);
+        LL L = 0,R = INF;
+        while(L <= R)
+        {
+            LL mid = (L+R)/2;
+            if(cal(mid) < n) L = mid+1;
+            else   R = mid-1;
+        }
+        while(cal(R) == n)
+            R--;
+        int res = 0,now = cal(R);
+        for(int i = 0;i < b;++i)
+        {
+            if(R % M[i] == 0)
+            {
+                now++;
+                if(now == n)
+                {
+                    res = i+1;
+                    break;
+                }
+            }
+        }
+        printf("Case #%d: %d\n",z,res);
+    }
+    return 0;
 }
