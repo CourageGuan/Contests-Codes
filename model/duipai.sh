@@ -1,8 +1,8 @@
 #!/bin/bash
 while true; do
-	./maker > test.in
-   	./a < input > a_out.txt
-	./b < input > b_out.txt
-	diff a_out.txt b_out.txt 
+	./maker > test.txt
+   	./a < test.txt > ans.txt
+	./b < test.txt > out.txt
+	diff ans.txt out.txt 
 	if [$? -ne 0] ; then break; fi
 done
