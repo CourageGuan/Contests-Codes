@@ -1,82 +1,79 @@
-//莫队算法,区间查询与分块
-#include<stdio.h>
-#include<iostream>
+#include<cstdio>
 #include<cstring>
 #include<cmath>
 #include<algorithm>
 using namespace std;
+typedef long long LL;
 
-#define P(n) n*n
-typedef long long ll;
-const int maxn=50010;
-int save[maxn],map[maxn],block[maxn];
-int n,m;
-ll ans;
+const int maxn = 5e4 + 10;
 
-struct Query{
+struct Res{
 	int l,r,id;
-	ll ans;
-	Query(int l=0,int r=0,int id=0):l(l),r(r),id(id) {}
-} q[maxn];
+	LL up,down;
+} res[maxn];
 
+int c[maxn],pos[maxn],cur[maxn];
+int m,n,B,val;
 
-bool cmp1(const Query& a,const Query& b){ 	//根据左节点位置分块排序
-	if(block[a.l]==block[b.l]) return a.r<b.r;	//在同一块中
-	return a.l<b.l;		//不在同一块中
-}
-
-bool cmp2(const Query& a,const Query& b){ 
-	return a.id<b.id;
-}
-
-ll gcd(ll a,ll b){
+LL gcd(LL a,LL b)
+{
 	return !b?a:gcd(b,a%b);
 }
 
-void update(int p,int add){
-	ans-=P(map[save[p]]);
-	map[save[p]]+=add;
-	ans+=P(map[save[p]]);
+bool cmp(const Res& a,const Res& b)
+{
+	if(pos[a.l] == pos[b.l]) return a.r < b.r;
+	else return a.l < b.l;
 }
 
-void solve(){
-	memset(map,0,sizeof map);
-	int l=1,r=0; 
-	ans=0;
-	for(int i=1;i<=m;++i){
-		for(;r<q[i].r;++r) update(r+1,1);
-		for(;r>q[i].r;--r) update(r,-1);
-		for(;l>q[i].l;--l) update(l-1,1);
-		for(;l<q[i].l;++l) update(l,-1);
-		if(q[i].l==q[i].r) q[i].ans=0;
-		else q[i].ans=ans;
+bool cmp_id(const Res& a,const Res& b)
+{
+	return a.id < b.id;
+}
+
+void update(int p,int ad)
+{
+	val -= (LL)cur[p]*(cur[p]-1)/2;
+	cur[p] += ad;
+	val += (LL)cur[p]*(cur[p]-1)/2;
+}
+
+void solve()
+{
+	LL l,r;
+	val = 0;
+	l = r = 1;
+	memset(cur,0,sizeof cur);
+	update(c[1],1);
+	for(int i=0;i<m;++i)
+	{
+		res[i].down = (LL)(res[i].r - res[i].l + 1)*(res[i].r - res[i].l)/2;
+		for(;l<res[i].l;++l) update(c[l],-1);
+		for(;l>res[i].l;--l) update(c[l-1],1);
+		for(;r<res[i].r;++r) update(c[r+1],1);
+		for(;r>res[i].r;--r) update(c[r],-1);
+		res[i].up = val;
+		//printf("%d %lld\n",res[i].id,val);
 	}
 }
 
 int main()
 {
 	//freopen("test.txt","r",stdin);
-	//freopen("hose.in","r",stdin);
-	//freopen("hose.out","w",stdout);
+	int mx = 0;
 	scanf("%d %d",&n,&m);
-	for(int i=1;i<=n;++i) scanf("%d",save+i);
-	for(int i=1;i<=m;++i){
-		int l,r;
-		scanf("%d %d",&l,&r);
-		q[i]=Query(l,r,i);
-	}
-	int N=(int)sqrt(m+0.5);
-	for(int i=1;i<=n;++i) block[i]=(i-1)/N+1; 	//分块大法好
-	sort(q+1,q+m+1,cmp1);
+	for(int i=1;i<=n;++i) scanf("%d",c+i);
+	for(int i=0;i<m;++i) scanf("%d %d",&res[i].l,&res[i].r),res[i].id = i,mx = max(mx,res[i].l);
+	B = sqrt(n);
+	for(int i=1;i<=mx;++i) pos[i] = i/B;
+	sort(res,res+m,cmp);
 	solve();
-	sort(q+1,q+m+1,cmp2);
-	for(int i=1;i<=m;++i){
-		ll mo=(ll)(q[i].r-q[i].l+1)*(q[i].r-q[i].l),so=q[i].ans-q[i].r+q[i].l-1;
-		//cout<<q[i].l<<" "<<q[i].r<<" "<<q[i].ans<<endl;
-		if(!so) puts("0/1");
-		//else printf("%lld/%lld\n",so,mo);
-		else printf("%lld/%lld\n",so/gcd(so,mo),mo/gcd(so,mo));
+	sort(res,res+m,cmp_id);
+	for(int i=0;i<m;++i)
+	{
+		LL t = gcd(res[i].up,res[i].down);
+		if(!res[i].up) puts("0/1");
+		else printf("%lld/%lld\n",res[i].up/t,res[i].down/t);
 	}
 	return 0;
 }
-
