@@ -83,15 +83,11 @@ int main()
 		++cnt[x];
 	}
 	M.clear();
-	for(int i=0;i<x;++i)
+	for(int j=0;j<x;++j)
 	{
-		for(int j=0;j<x;++j)
+		for(int z=1;z<=9;++z)
 		{
-			for(int z=1;z<=9;++z)
-			{
-				if((j*10 + z)%x == i)
-					M.m[i][j] += cnt[z];
-			}
+			M.m[(j*10 + z)%x][j] += cnt[z];
 		}
 	}
 	A.clear();
