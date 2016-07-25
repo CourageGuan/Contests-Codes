@@ -1,4 +1,4 @@
-/*答案是ll，记得输出用 %ld*/
+/*答案是ll，记得输出用 %lld*/
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -22,7 +22,7 @@ int main()
 				ans=max(ans,res);
 			}
 		if(n==1) ans=a[0];
-		printf("Case #%d: The maximum product is %ld.\n\n",kase++,(ans>0)?ans:0);
+		printf("Case #%d: The maximum product is %lld.\n\n",kase++,(ans>0)?ans:0);
 	}
 	return 0;
 }

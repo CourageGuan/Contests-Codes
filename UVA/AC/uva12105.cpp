@@ -1,5 +1,5 @@
 //大整数dp，但使用技巧不需要大整数
-//d(i,j)表示i根火柴拼出余数为j的数的最大位数,p[i][j]记录的是满足该条件的该位上的最大数
+//d(i,j)表示最多i根火柴拼出余数为j的数的最大位数,p[i][j]记录的是满足该条件的该位上的最大数
 //d(i,j)=d(i-match[k],(j*10+k)%m)+1
 #include<stdio.h>
 #include<string.h>
@@ -14,7 +14,7 @@ int d[maxn][maxm],p[maxn][maxm];
 int main()
 {
 	int n,m,kase=0;
-	while(scanf("%d",&n) && n){
+	while(scanf("%d",&n) == 1 && n){
 		scanf("%d",&m);
 		printf("Case %d: ",++kase);	
 		for(int i=0;i<=n;++i)
