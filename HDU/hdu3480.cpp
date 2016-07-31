@@ -1,72 +1,55 @@
-//区间dp 四边形不等式优化
-#include<stdio.h>
-#include<cstring>
-#include<algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-#define POW(a) ((a)*(a))
+#define F(i,a,b) for(int i=(a);i<=(b);++i)
+#define R(i,n) for(int i=0;i<n;++i)
+#define P(n) (1LL*(n)*(n))
 
-const int maxn = 10010;
+const int maxn = 1e4 + 10;
 const int maxm = 5010;
-const int INF = 0x3f3f3f3f;
+
 int n,m;
-
-int save[maxn];
-int d[maxm][maxn],K[maxm][maxn];
-
-
+int a[maxn],s[maxm][maxn],d[maxm][maxn];
 
 int main()
 {
-    //freopen("test.txt","r",stdin); 
+	//freopen("test.txt","r",stdin);
 	int T;
 	scanf("%d",&T);
-	for(int kase=1;kase<=T;++kase)
+	F(z,1,T)
 	{
-		scanf("%d %d",&n,&m);
-
-		for(int i=1;i<=n;++i) scanf("%d",save+i);
-
-		if(n<=m) 
+		scanf("%d %d",&n,&m);	
+		F(i,1,n) scanf("%d",a+i);
+		if(m >= n)
 		{
-			printf("Case %d: %d\n",kase,0);
+			printf("Case %d: %d\n",z,0);
 			continue;
 		}
-
-		sort(save+1,save+1+n);
-
-		for(int i=0;i<=m;++i)
+		sort(a+1,a+1+n);
+		memset(d,0x3f,sizeof d);
+		F(i,1,n)
 		{
-			K[i][i] = i;
-			d[i][i] = 0;
+			d[1][i] = P(a[i]-a[1]);
+			s[1][i] = 0;
 		}
-
-		for(int L=1;L<=n-m;++L)
+		F(i,2,m)
 		{
-			int j;
-			d[0][L] = INF;
-			for(int i=1; (j=i+L)<=n && i<=m; ++i)
+			s[i][n+1] = n;
+			for(int j=n;j>i;--j)
 			{
-
-				int &ans = d[i][j];
-				ans = INF;
-
-				if(i+1>m) K[i+1][j] = j;
-
-				for(int k=K[i][j-1] ; k<=K[i+1][j]; ++k)
+//				printf("%d %d %d %d \n",j,i,s[i-1][j],s[i][j+1]);
+				F(k,s[i-1][j],s[i][j+1])
 				{
-					int t=d[i-1][k-1]+POW(save[j]-save[k]);
-					if(ans>t)
+					if(d[i][j] > d[i-1][k] + P(a[j]-a[k+1]))
 					{
-						K[i][j] = k;
-						ans = t;
+						d[i][j] = d[i-1][k] + P(a[j]-a[k+1]);
+						s[i][j] = k;
 					}
 				}
+//				printf("%d %d\n",d[i][j],s[i][j]);
 			}
 		}
-
-		printf("Case %d: %d\n",kase,d[m][n]);
+		printf("Case %d: %d\n",z,d[m][n]);
 	}
 	return 0;
 }

@@ -1,101 +1,37 @@
-//区间dp + 四边形不等式优化
-#include<cstdio>
-#include<cstring>
-#include<algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-#define min(a,b) (a>b?b:a)
+const int maxn = 300;
 
-const int maxn=255;
-const int INF=0x3f3f3f3f;
-
-typedef long long LL;
-
-LL d[maxn][maxn],w[maxn];
-int save[maxn],K[maxn][maxn];
-int n;
-
-/*	
-LL dp(int i,int j)
-{
-	LL &ans = d[i][j];
-	if(ans!=-1) return ans;
-
-	ans = INF;
-
-	if(i==j)
-	{
-		return ans = 0;
-	}
-
-	
-	for(int k=i;k<=j;++k)
-	{
-		int res = w[j] - w[i-1] - save[k] ;
-		if(k-1>=i) res += dp(i,k-1);  
-		if(k+1<=j) res += dp(k+1,j);
-		ans = min(ans,res);
-	}
-	return ans;
-}
+#define F(i,a,b) for(int i=(a);i<=(b);++i)
+int sum[maxn],e[maxn],n;
+int d[maxn][maxn],s[maxn][maxn];
 
 
 int main()
 {
-	while(scanf("%d",&n)==1)
+	while(~scanf("%d",&n))
 	{
-		for(int i=1;i<=n;++i) scanf("%d",save+i);
-
-		w[0]=0;
-		for(int i=1;i<=n;++i) w[i]=w[i-1]+save[i];
-
-		memset(d,-1,sizeof d);
-
-		printf("%lld\n",dp(1,n));	
-	}
-	return 0;
-}
-*/
-
-
-int main()
-{
-	while(scanf("%d",&n)==1)
-	{
-		for(int i=1;i<=n;++i) scanf("%d",save+i);
-
-		w[0]=0;
-		for(int i=1;i<=n;++i) w[i] = w[i-1] + save[i];
-
-		memset(d,0,sizeof d);
-
-		for(int i=1;i<=n;++i) K[i][i] = i;
-
-		for(int L=2;L<=n;++L)
+		sum[0] = 0;
+		F(i,1,n) scanf("%d",e+i),sum[i] = sum[i-1] + e[i],s[i][i] = i;
+		F(l,1,n-1)
 		{
-			int j;
-			for(int i=1;(j=i+L-1)<=n;++i)
+			F(i,1,n)
 			{
-				LL& res = d[i][j];
-				res = INF;
-				for(int k=K[i][j-1];k<=K[i+1][j];++k)
+				int j = i+l;
+				if(j > n) break;
+				d[i][j] = 0x3f3f3f3f;
+				F(k,s[i][j-1],s[i+1][j])
 				{
-					LL t=w[j]-w[i-1]-save[k];
-					if(k-1>=i) t+=d[i][k-1];
-					if(k+1<=j) t+=d[k+1][j];
-
-					if(t <= res)
+					if(d[i][j] > d[i][k-1] + d[k+1][j] + sum[j] - sum[i-1] - e[k])
 					{
-						K[i][j] = k;
-						res = t;
+						d[i][j] = d[i][k-1] + d[k+1][j] + sum[j] - sum[i-1] - e[k];
+						s[i][j] = k;
 					}
 				}
 			}
 		}
-
-		printf("%lld\n",d[1][n]);
+		printf("%d\n",d[1][n]);
 	}
 	return 0;
 }
-

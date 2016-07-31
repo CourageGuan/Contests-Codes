@@ -1,63 +1,53 @@
-//区间dp 四边形不等式
 #include<cstdio>
 #include<cstring>
-
+#include<algorithm>
 using namespace std;
-typedef long long LL;
 
+#define F(i,a,b) for(int i=(a);i<=(b);++i)
+#define R(i,n) for(int i=(0);i<n;++i)
+
+const int maxn = 310;
+const int maxm = 33;
 const int INF = 0x3f3f3f3f;
-const int maxv = 310;
-const int maxp = 40;
-int d[maxv][maxv],K[maxv][maxv],p,v;
-int save[maxv];
-int w[maxv];
 
-int getw(int l,int r)
-{
-	int m=(l+r)>>1;
-	return w[r] - w[m] - (r-m)*save[m] + (m-l)*save[m] - (w[m-1]-w[l-1]);
-}
+int n,m;
+
+int d[maxm][maxn],cost[maxn][maxn],x[maxn],s[maxm][maxn];
 
 int main()
 {
-    //freopen("test.txt","r",stdin);
-	while(scanf("%d %d",&v,&p)==2)
+	//freopen("test.txt","r",stdin);
+	while(~scanf("%d %d",&n,&m))
 	{
-		w[0]=0;
-		for(int i=1;i<=v;++i)
+		R(i,n) scanf("%d",x+i+1);
+		F(i,1,n)
+			F(j,i+1,n)
+				cost[i][j] = cost[i][j-1] + x[j] - x[(i+j)>>1];
+		memset(d,INF,sizeof d);
+		F(i,1,n)
 		{
-		   	scanf("%d",save+i);
-			w[i] = w[i-1] + save[i];
+			d[1][i] = cost[1][i];
+			s[1][i] = 0;
 		}
-
-		for(int i=0;i<=v;++i)
+		F(i,2,m)
 		{
-            K[i][i]=i;
-            d[i][i]=0;
-		}
-
-		for(int L=1;L<=v-p;++L)
-		{
-			int j;
-			for(int i=0; (j=i+L)<=v;++i) d[i][j]=INF;
-			for(int i=1; (j=i+L)<=v;++i)
+			s[i][n+1] = n;
+//			F(j,i+1,n)
+			for(int j=n;j>i;--j)
 			{
-				int &res = d[i][j];
-				res = INF;
-
-				for(int k=K[i][j-1];k<=K[i+1][j];++k)
+		//		printf("%d %d %d %d\n",i,j,s[i-1][j],s[i][j+1]);
+				F(k,s[i-1][j],s[i][j+1])
 				{
-					int t=d[i-1][k-1] + getw(k,j);
-					if(t<res)
+					if(d[i][j] > d[i-1][k] + cost[k+1][j])
 					{
-						//printf("(%d,%d)..%d\n",i,j,t);
-						res = t;
-						K[i][j] = k;
+						d[i][j] = d[i-1][k] + cost[k+1][j];
+						s[i][j] = k;
 					}
 				}
+				//printf("%d %d %d\n",j,i,s[i][j]);
 			}
 		}
-		printf("%d\n",d[p][v]);
+		printf("%d\n",d[m][n]);
 	}
 	return 0;
 }
