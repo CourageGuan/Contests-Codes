@@ -1,6 +1,6 @@
-//sg搜索
 #include<cstdio>
 #include<cstring>
+
 
 const int DAYS = 365;
 const int MON[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
@@ -63,20 +63,6 @@ struct Date{
 	Date operator+(const int day);
 	Date operator-(const int day);
 
-	int Weekday()	//返回今天为星期几
-	{
-		Date temp = *(this);
-		int ans ;
-		if(m == 1 || m == 2) m+=12 , --y;
-		if((y < 1752 ) || (y ==1752 && m<9) ||
-            (y==1752 && m==9 && d<3))
-			ans = (d + 2*m + 3*(m+1)/5 + y + y/4 + 5)%7;
-		else
-			ans = (d + 2*m + 3*(m+1)/5+y+y/4-y/100+y/400)%7;
-		*(this) = temp;
-		return ans+1;
-	}
-
 };
 
 Date toDate(int day)
@@ -109,47 +95,48 @@ Date Date::operator-(const int day)
 	return toDate(this->toDay() - day);
 }
 
-//--------------------------------------------------------
-
-const int maxn = 50010;
+const int maxn = 5e4;
 int sg[maxn];
-bool vis[maxn];
-Date end(2001,11,4);
-const int T = end.toDay();
+int tran[maxn][2];
+Date d1(2001,11,4),d2(1900,1,1);
+
+void dfs(int t)
+{
+	if(sg[t] != -1) return ;
+	int vis[3];
+	memset(vis,0,sizeof vis);
+	if(t - 1 >= 0) dfs(t-1),vis[sg[t-1]] = 1;
+	Date d = (d1 - t);
+	d.m += 1;
+	d.y += d.m/13;
+	d.m %= 13;
+	if(d.Islegal() && (d1 - d >= 0)) dfs(d1-d),vis[sg[d1-d]] = 1;
+	for(int i=0;;++i) if(!vis[i])
+	{
+		sg[t] = i;
+		break;
+	}
+}
+
 
 void init()
 {
-	memset(sg,0,sizeof sg);
-	for(int i=1;i<maxn;++i)
-	{
-		memset(vis,0,sizeof vis);
-		Date now = end - i;
-		vis[sg[T - (now+1).toDay()]] = 1;
-		if(now.m != 12) now.m += 1;
-		else now.m = 1, now.y += 1;
-		if(now.Islegal() && now.toDay() <= T) vis[sg[T - now.toDay()]] = 1;
-		for(int j=0; ;++j)
-			if(!vis[j])
-			{
-				sg[i] = j;
-				break;
-			}
-	}
+	int t = d1 - d2;
+	memset(sg,-1,sizeof sg);
+	dfs(t);
 }
 
 int main()
 {
 	//freopen("test.txt","r",stdin);
-	int kase;
 	init();
-	scanf("%d",&kase);
-	while(kase--)
+	int T;
+	scanf("%d",&T);
+	while(T--)
 	{
 		int y,m,d;
-		scanf("%d %d %d",&y,&m,&d);
-//		printf("%d\n", T - Date(y,m,d).toDay());
-		puts(sg[T - Date(y,m,d).toDay()]?"YES":"NO");
+		scanf("%d%d%d",&y,&m,&d);
+		puts(sg[d1-Date(y,m,d)]?"YES":"NO");
 	}
 	return 0;
 }
-
