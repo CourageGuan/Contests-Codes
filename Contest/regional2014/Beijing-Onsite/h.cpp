@@ -1,7 +1,6 @@
 #include<cstdio>
 #include<cstring>
 
-
 typedef long long LL;
 const int maxn = (1<<20) + 10;
 int n,m,SIZE;
