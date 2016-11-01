@@ -32,7 +32,7 @@ void SA()
 		for(int i=1;i<=n;++i)
 		{
 			cntA[A[i] = rk[i]] ++;
-			cntB[B[i] = (i+1 <= n)?rk[i+1]:0] ++;
+			cntB[B[i] = (i+l <= n)?rk[i+l]:0] ++;
 		}
 		for(int i=1;i<=n;++i) cntB[i] += cntB[i-1];
 		for(int i=n; i; --i) tsa[cntB[B[i]]--] = i;
