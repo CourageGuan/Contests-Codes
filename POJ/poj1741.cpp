@@ -8,7 +8,7 @@
 #define fi first
 #define se second
 
-const int maxn = 1e5 + 10;
+const int maxn = 1e4 + 10;
 int n,k;
 std::vector<std::pair<int,int> > G[maxn];
 std::vector<int> dd;
