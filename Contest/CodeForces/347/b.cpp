@@ -2,55 +2,71 @@
 using namespace std;
 typedef long long LL;
 
-char s[20],ss[20];
-const int ten[6] = {0,10000,110000,1110000,11110000,111110000};
-
-int toInt(char *s)
-{
-	int res = 0;
-	for(int i=0;i<strlen(s);++i)
-		res = res * 10 + s[i] - '0';
-	return res;
-}
+char s[2];
+int mark[110],cnt,res[110];
+int inc,de,n;
 
 int main()
 {
-	//freopen("test.txt","r",stdin);
-	int n;
-	scanf("%d",&n);
-	for(int i=0;i<n;++i)
+//	freopen("test.txt","r",stdin);
+	scanf("%s",s);
+	mark[cnt++] = 1; ++inc;
+	while(scanf("%s",s) == 1 && s[0] != '=')
 	{
-		scanf("%s",ss);
-		for(int j=4;j<=strlen(ss);++j) s[j-4] = ss[j];
-		int len = strlen(s),cur = toInt(s);
-		if(len == 1)
+		if(s[0] == '-')
 		{
-			if(s[0] == '9')
-				puts("1989");
-			else
-				printf("199%s\n",s);
+			mark[cnt++] = -1;
+			++de;
 		}
-		if(len == 2)
+		else
 		{
-			if(strcmp(s,"99") == 0)
-				puts("1999");
-			else
-				printf("20%s\n",s);
+			mark[cnt++] = 1;
+			++inc;
 		}
-		if(len == 3)
+		scanf("%s",s);
+	}
+	scanf("%d",&n);
+	int t = n;
+	bool flag = true;
+	for(int i=0;i<cnt;++i)
+		if(mark[i] == -1)
 		{
-			if(cur >= 99)
-				printf("2%s\n",s);
-			else
-				printf("3%s\n",s);
+			--de;
+			res[i] = min(n,n*inc-de-t);
+			t += res[i];
+			if(res[i] < 1)
+			{
+				flag = false;
+				break;
+			}
 		}
-		if(len >= 4)
+	if(t > n*inc) flag = false;
+	for(int i=0;i<cnt;++i)
+		if(mark[i] == 1)
 		{
-			if(cur < 3099 + ten[len-4])
-				printf("1%s\n",s);
-			else
-				printf("%s\n",s);
+			--inc;
+			res[i] = min(n,t-inc);
+			t -= res[i];
+			if(res[i] < 1)
+			{
+				flag = false;
+				break;
+			}
 		}
+	if(t != 0) flag = false;
+	if(!flag) puts("Impossible");
+	else
+	{
+		puts("Possible");
+		for(int i=0;i<cnt;++i)
+		{
+			if(i == 0)
+				printf("%d ",res[i]);
+			else
+				printf("%c %d ",mark[i]==1?'+':'-',res[i]);
+		}
+		printf("= %d\n",n);
 	}
 	return 0;
 }
+

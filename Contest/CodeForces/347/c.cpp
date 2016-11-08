@@ -2,74 +2,55 @@
 using namespace std;
 typedef long long LL;
 
-const int maxn = 1e5 + 10;
-int n,m,vis[maxn];
-vector<int> G[maxn],col[maxn];
-vector<int> part[2];
+char s[20],ss[20];
+const int ten[6] = {0,10000,110000,1110000,11110000,111110000};
 
-bool dfs(int u,int c,int p)
+int toInt(char *s)
 {
-	if(vis[u] != -1) return vis[u] ==  p;
-	
-	vis[u] = p;
-	part[p].push_back(u);
-
-	for(int i=0;i<G[u].size();++i)
-	{
-		if(!dfs(G[u][i],c,col[u][i] == c?p:p^1)) return 0;
-	}
-
-	return 1;
-}
-
-vector<int> solve(int c)
-{
-	vector<int> ans;
-	memset(vis,-1,sizeof vis);
-
-	for(int i=1;i<=n;++i)
-	{
-		if(vis[i] == -1)
-		{
-			part[0].clear();
-			part[1].clear();
-
-			if(!dfs(i,c,0))
-			{
-				for(int i=0;i<n+1;++i) ans.push_back(-1);
-				return ans;
-			}
-			int f = 0;
-			if(part[0].size() > part[1].size()) f = 1;
-			ans.insert(ans.end(),part[f].begin(),part[f].end());
-		}
-	}
-	return ans;
+	int res = 0;
+	for(int i=0;i<strlen(s);++i)
+		res = res * 10 + s[i] - '0';
+	return res;
 }
 
 int main()
 {
 	//freopen("test.txt","r",stdin);
-	scanf("%d%d",&n,&m);
-	for(int i=0;i<m;++i)
+	int n;
+	scanf("%d",&n);
+	for(int i=0;i<n;++i)
 	{
-		int a,b;
-		char s[2];
-		scanf("%d%d%s",&a,&b,s);
-		G[a].push_back(b);
-		col[a].push_back(s[0]=='B'?0:1);
-		G[b].push_back(a);
-		col[b].push_back(s[0]=='B'?0:1);
-	}
-	vector<int> a = solve(0),b = solve(1);
-	if(a.size() > b.size()) a = b;
-	if(a.size() > n) puts("-1");
-	else
-	{
-		printf("%d\n",a.size());
-		for(auto x: a) printf("%d ",x);
-		puts("");
+		scanf("%s",ss);
+		for(int j=4;j<=strlen(ss);++j) s[j-4] = ss[j];
+		int len = strlen(s),cur = toInt(s);
+		if(len == 1)
+		{
+			if(s[0] == '9')
+				puts("1989");
+			else
+				printf("199%s\n",s);
+		}
+		if(len == 2)
+		{
+			if(strcmp(s,"99") == 0)
+				puts("1999");
+			else
+				printf("20%s\n",s);
+		}
+		if(len == 3)
+		{
+			if(cur >= 99)
+				printf("2%s\n",s);
+			else
+				printf("3%s\n",s);
+		}
+		if(len >= 4)
+		{
+			if(cur < 3099 + ten[len-4])
+				printf("1%s\n",s);
+			else
+				printf("%s\n",s);
+		}
 	}
 	return 0;
 }
-
